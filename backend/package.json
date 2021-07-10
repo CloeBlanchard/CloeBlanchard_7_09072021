@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CloeBlanchard/CloeBlanchard_7_09072021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CloeBlanchard/CloeBlanchard_7_09072021/issues"
+  },
+  "homepage": "https://github.com/CloeBlanchard/CloeBlanchard_7_09072021#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "expres": "0.0.5",
+    "mysql": "^2.18.1"
+  }
+}
