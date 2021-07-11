@@ -72,5 +72,16 @@ app.put('/user/:id', function (req, res) {
         return res.send({ error: false, data: results, message: 'user has been updated successfully.' });
     });
 });
+// Suppression d'un utilisateur
+app.delete('/user/:id', function (req, res) {
+    let user_id = req.params.id;
+    if (!user_id) {
+        return res.status(400).send({ error: true, message: 'Please provide user_id' });
+    }
+    dbConnection.query('DELETE FROM users WHERE id_user=?', [user_id], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ erro: false, data: results, message: "L'utilisateur à bien été supprimé" });
+    });
+});
 
 module.exports = app;
