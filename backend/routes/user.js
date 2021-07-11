@@ -1,9 +1,9 @@
-// ajout d'express
+// import d'express
 const express = require('express');
-// import du router d'express
+// Import du router express
 const router = express.Router();
-// import du user controler
-const userCtrl = require('../controllers/user');
+// Import du controllers des utilisateurs
+const userCtrlrs = require('../controllers/user');
 
-// import des routes post pour l'authentification
-router.post('/', userCtrl.getAllUsers);
+// import de la route de récupérations des utilisateurs
+router.post('/users', userCtrlrs.getAllUsers);
