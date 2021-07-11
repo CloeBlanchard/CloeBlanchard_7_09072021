@@ -27,7 +27,6 @@ app.get('/', function(req, res) {
 const dbConnection = mysql.createConnection({
     host: process.env.host,
     user: process.env.user,
-    password: process.env.password,
     database: process.env.db
 });
 dbConnection.connect();
@@ -39,5 +38,52 @@ app.get('/users', function (req, res) {
         return res.send({ error: false, data: results, message: 'users list.' });
     });
 });
+// récupération des utilisateurs par l'id
+app.get('/user/:id', function (req, res)  {
+    let user_id = req.params.id;
+    if(!user_id) {
+        return res.status(400).send({ error: true, message: "Veullez fournir l'id de l'utilisateur"});
+    }
+    dbConnection.query('SELECT * FROM users WHERE id=?', user_id, function(error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results[0], message: 'users list.'});
+    });
+});
+// ajout d'un nouvel utilisateur
+app.post('/user', function (req, res) {
+    let userinfo = req.body.userinfo
+    if(!userinfo) {
+        return res.status(400).send({ error: true, message: "Veullez fournir l'utilisateur"});
+    }
+    dbConnection.query("INSERT INTO users SET ?", userinfo, function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: "L'utilisateur à bien été crée" });
+    });
+});
+
+// mise a jour d'un utilisateur avec l'id
+app.put('/user/:id', function (req, res) {
+    let user_id = req.params.id;
+    let user = req.body.user;
+    if (!user_id || !user) {
+        return res.status(400).send({ error: true, message: 'Please provide user and user_id' });
+    }
+    dbConnection.query("UPDATE users SET ? WHERE id_user=?", [user, user_id], function (error, results, field) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'user has been updated successfully.' });
+    });
+});
+// Suppression d'un utilisateur
+app.delete('/user/:id', function (req, res) {
+    let user_id = req.params.id;
+    if (!user_id) {
+        return res.status(400).send({ error: true, message: 'Please provide user_id' });
+    }
+    dbConnection.query('DELETE FROM users WHERE id_user=?', [user_id], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ erro: false, data: results, message: "L'utilisateur à bien été supprimé" });
+    });
+});
+
 
 module.exports = app;
