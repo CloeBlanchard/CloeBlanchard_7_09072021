@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql');
 require('dotenv').config();
-const userRoutes = require('./routes/user');
 
 
 // application
@@ -28,16 +27,17 @@ app.get('/', function(req, res) {
 const dbConnection = mysql.createConnection({
     host: process.env.host,
     user: process.env.user,
+    password: process.env.password,
     database: process.env.db
 });
 dbConnection.connect();
 
 // récupération des utilisateurs
-app.use('/api/auth', userRoutes);
-
-
-// set port
-app.listen(3000, function() {
-    console.log('Node app is running on port 3000');
+app.get('/users', function (req, res) {
+    dbConnection.query('SELECT * FROM users', function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'users list.' });
+    });
 });
+
 module.exports = app;
