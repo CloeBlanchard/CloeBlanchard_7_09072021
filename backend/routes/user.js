@@ -11,6 +11,8 @@ router.get('/users', userCtrl.getAllUsers);
 router.get('/user/:id', userCtrl.getUser);
 // import de la creation d'un nouvel utilisateur
 router.post('/signup', userCtrl.signup);
+// import de la connexion d'un utilisateur
+router.post('/login', userCtrl.login);
 // import de la modification d'un utilisateur
 router.put('/user/:id', userCtrl.updateUser);
 // import de la suppression d'un utilisateur
