@@ -7,7 +7,7 @@ const mysql = require('mysql');
 // import du gestionnaire d'environnement
 require('dotenv').config();
 // import de le connection de mysql
-const db_connection = require('../db_connect');
+const dbConnection = require('../db_connect');
 // import de cryptojs
 const cryptoJs = require('crypto-js');
 
@@ -15,10 +15,10 @@ const cryptoJs = require('crypto-js');
 var key = cryptoJs.enc.Hex.parse(process.env.key);
 var iv = cryptoJs.enc.Hex.parse(process.env.iv);
 
-// récupération d'un utilisateur unique
+// récupération de tous les utilisateurs
 exports.getAllUsers = (req, res) => {
-    dbConnection.query('SELECT * FROM users', function (error, results) {
-        if (error) throw error;
-        return res.send({ error: false, data: results, message: 'users list.' });
+    dbConnection.query('SELECT * FROM users', (err, result) => {
+        if (err) throw err;
+        return res.send({ error: false, message: result});
     });
 };
