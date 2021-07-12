@@ -37,17 +37,28 @@ exports.getUser = (req, res, next) => {
 
 // création d'un nouvel utilisateur
 exports.signup = (req, res, next) => {
-    const userinfo = req.body.userinfo;
-    // si les infos de l'user ne sont pas correcte
-    if (!userinfo) {
-        return res.status(400).send({ error, message: "Les champs ne sont pas complet" });
-    }
-    // connection à la bdd et insertion des données de l'utilisateur
-    dbConnection.query("INSERT INTO users SET ?", userinfo, (error, results, fields) => {
-        // on renvoie le resultat
-        return res.send({ error: false, data: results, message: "L'utilisateur à bien été crée" });
-    });
-};
+    // chiffrement du mdp
+    bcrypt.hash(req.body.mot_de_passe, 10) 
+        .then((hash) => {
+            req.body.mot_de_passe = hash;
+            // entré de l'email dans la bdd
+            dbConnection.query('SELECT * from users WHERE email=?', req.body.email, (err, result) => {
+                // si erreur, renvoie de l'erreur
+                if (err) {
+                    return res.status(400).json({ error });
+                } else {
+                    // sinon entré de la requête dans la bdd
+                    dbConnection.query('INSERT INTO users SET ?', req.body, (err, result) => {
+                        if (err) {
+                            console.log(err)
+                            return res.status(400).json({ error: true, message: "Certains champs sont vide, verifiez votre saisi !" });
+                        };
+                        return res.status(201).json({ error: false, message : "L'utilisateur à bien été crée !" });
+                    });
+                };
+            });
+        }); 
+}
 
 // mise a jour d'un utilisateur
 exports.updateUser = (req, res) => {
