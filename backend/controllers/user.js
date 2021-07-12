@@ -49,3 +49,15 @@ exports.signup = (req, res, next) => {
     });
 };
 
+// mise a jour d'un utilisateur
+exports.updateUser = (req, res) => {
+    let user_id = req.params.id;
+    let userinfo = req.body.userinfo;
+    if (!user_id || !userinfo) {
+        return res.status(400).send({ error: user, message: "Veullez fournir l'utilisateur and son id" });
+    }
+    dbConnection.query("UPDATE users SET ? WHERE id_user=?", [userinfo, user_id], (error, results) => {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: "L'utilisateur à bien été mis à jour" });
+    });
+};
