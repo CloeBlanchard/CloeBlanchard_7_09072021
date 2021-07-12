@@ -22,3 +22,15 @@ exports.getAllUsers = (req, res) => {
         return res.send({ error: false, message: result});
     });
 };
+
+// récupération d'un utilisateur avec l'id
+exports.getUser = (req, res) => {
+    let user_id = req.params.id;
+    if(!user_id) {
+        return res.status(400).send({ error: true, message: "Veullez fournir l'id de l'utilisateur"});
+    }
+    dbConnection.query('SELECT * FROM users WHERE id_user=?', user_id, function(error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, message: results[0] });
+    });
+}
