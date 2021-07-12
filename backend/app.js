@@ -30,6 +30,6 @@ const dbConnection = mysql.createConnection({
 dbConnection.connect();
 
 // route par défaut
-app.use('/api', userRoutes)
+app.use('/api', userRoutes);
 
 module.exports = app;
