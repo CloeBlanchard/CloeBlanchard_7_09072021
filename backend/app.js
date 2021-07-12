@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql');
 require('dotenv').config();
-
+// import du router des utilisateurs
+const userRoutes = require('./routes/user');
 
 // application
 app.use((req, res, next) => {
@@ -31,13 +32,8 @@ const dbConnection = mysql.createConnection({
 });
 dbConnection.connect();
 
-// récupération des utilisateurs
-app.get('/users', function (req, res) {
-    dbConnection.query('SELECT * FROM users', function (error, results, fields) {
-        if (error) throw error;
-        return res.send({ error: false, data: results, message: 'users list.' });
-    });
-});
+// import des routes d'utilisateurs
+app.use('/api/auth', userRoutes);
 // récupération des utilisateurs par l'id
 app.get('/user/:id', function (req, res)  {
     let user_id = req.params.id;
