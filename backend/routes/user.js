@@ -13,7 +13,8 @@ router.get('/user/:id', userCtrl.getUser);
 router.post('/signup', userCtrl.signup);
 // import de la modification d'un utilisateur
 router.put('/user/:id', userCtrl.updateUser);
-
+// import de la suppression d'un utilisateur
+router.delete('/user/:id', userCtrl.updateUser)
 
 // Export du router
 module.exports = router;
