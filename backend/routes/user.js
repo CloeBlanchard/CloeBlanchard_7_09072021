@@ -9,5 +9,9 @@ const userCtrl = require('../controllers/user');
 router.get('/users', userCtrl.getAllUsers);
 // import du router de récupération d'un utilsateur avec l'id
 router.get('/user/:id', userCtrl.getUser);
+// import de la creation d'un nouvel utilisateur
+router.post('/signup', userCtrl.signup);
+
+
 // Export du router
 module.exports = router;
