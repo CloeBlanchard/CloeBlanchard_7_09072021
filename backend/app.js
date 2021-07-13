@@ -33,7 +33,10 @@ dbConnection.connect();
 
 // route des utilisateurs
 app.use('/api/auth', userRoutes);
+// middleware des modifications des fichier images
+app.use('/images', express.static(path.join(__dirname, 'images')));
 // routes des publications
-app.use('/api/post', publicationRoutes);
+app.use('/api', publicationRoutes);
+
 
 module.exports = app;
