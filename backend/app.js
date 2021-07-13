@@ -7,6 +7,8 @@ const mysql = require('mysql');
 require('dotenv').config();
 // import du router d'utilisateur
 const userRoutes = require('./routes/user');
+// import du router des publications
+const publicationRoutes = require('./routes/publication');
 
 
 // application
@@ -29,7 +31,9 @@ const dbConnection = mysql.createConnection({
 });
 dbConnection.connect();
 
-// route par défaut
-app.use('/api', userRoutes);
+// route des utilisateurs
+app.use('/api/auth', userRoutes);
+// routes des publications
+app.use('/api/post', publicationRoutes);
 
 module.exports = app;
