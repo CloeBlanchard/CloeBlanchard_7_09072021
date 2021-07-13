@@ -60,26 +60,22 @@ exports.login = (req, res) => {
     // envoie de l'email et du mot de passe dans la bdd
     if (req.body.email && req.body.mot_de_passe){
         // connexion à la bdd
-      dbConnection.query('SELECT * FROM users WHERE email=?', req.body.email, (err, results) => {
-        //   si erreur
-            if (err){
-                return res.status(400).json({ error });
-            }
+      dbConnection.query('SELECT * FROM users WHERE email=?', req.body.email, (err, result) => {
             // Vérifie que le mail correspond à celui envoyer dans la bdd
-            if (results.length <= 0){
-                return res.status(500).json({ message: "L'email est inconnue à la base de donnée"})
+            if (result.length <= 0){
+                return res.status(500).json({ error: true, message: "L'email est inconnue à la base de donnée"});
             } else {
-                bcrypt.compare(req.body.mot_de_passe, results[0].mot_de_passe)
+                bcrypt.compare(req.body.mot_de_passe, result[0].mot_de_passe)
                 .then(valid => {
                     if(!valid){
-                        return res.status(500).json({ message: "Email ou mot de passe incorrect"});
+                        return res.status(500).json({ error: true, message: "Email ou mot de passe incorrect"});
                     } else {
                         res.status(200).json({
-                            userId: results[0].id,
-                            nom: results[0].nom,
-                            prenom: results[0].prenom,
+                            user_id: result[0].id,
+                            nom: result[0].nom,
+                            prenom: result[0].prenom,
                             token: jwt.sign({
-                                userId: results[0].id
+                                user_id: result[0].id
                             }, process.env.TOKEN, {
                                 expiresIn: '24h'
                             })
@@ -87,7 +83,7 @@ exports.login = (req, res) => {
                     }
                     })
                 .catch(() => {
-                    return res.status(500).json({ message : 'Erreur interne' })
+                    return res.status(500).json({ error })
                 })
             }
         })
