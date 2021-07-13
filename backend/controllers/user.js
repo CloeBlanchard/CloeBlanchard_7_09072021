@@ -24,7 +24,7 @@ exports.getUser = (req, res) => {
     if (!user_id) {
         return res.status(400).send({ error: true, message: "Veullez fournir l'id de l'utilisateur" });
     }
-    dbConnection.query('SELECT * FROM users WHERE id_user=?', user_id, (error, results) => {
+    dbConnection.query('SELECT * FROM users WHERE id=?', user_id, (error, results) => {
         if (error) throw error;
         return res.send({ error: false, message: results[0] });
     });
@@ -99,7 +99,7 @@ exports.updateUser = (req, res) => {
         return res.status(400).send({ error: user, message: "Veullez fournir l'utilisateur and son id" });
     }
     // connexion à la bdd pour mettre à jour l'utilisateur avec son id en paramaetre
-    dbConnection.query("UPDATE users SET ? WHERE id_user=?", [userinfo, user_id], (error, results) => {
+    dbConnection.query("UPDATE users SET ? WHERE id=?", [userinfo, user_id], (error, results) => {
         if (error) throw error;
         return res.send({ error: false, data: results, message: "L'utilisateur à bien été mis à jour" });
     });
@@ -113,7 +113,7 @@ exports.deleteUser = (req, res) => {
         return res.status(400).send({ error: false, message: "Veullez fournir l'id de l'utilisateur" });
     }
     // connexion à la bdd
-    dbConnection.query('DELETE FROM users WHERE id_user= ?', [user_id], function (error, results, fields) {
+    dbConnection.query('DELETE FROM users WHERE id= ?', [user_id], function (error, results, fields) {
         if (error) throw error;
         return res.send({ erro: false, data: results, message: "L'utilisateur à bien été supprimé" });
     });
