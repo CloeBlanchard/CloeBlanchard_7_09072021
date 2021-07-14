@@ -112,6 +112,6 @@ exports.deleteUser = (req, res) => {
     // connexion à la bdd
     dbConnection.query('DELETE FROM users WHERE id= ?', [user_id], (error) => {
         if (error) throw error;
-        return res.send({ error: false, message: "L'utilisateur à bien été supprimé" });
+        return res.status(200).send({ error: false, message: "L'utilisateur à bien été supprimé" });
     });
 }
