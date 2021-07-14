@@ -2,23 +2,29 @@
 const dbConnection = require('../db_connect');
 // import de file system
 const fs = require('fs');
-const { json } = require('body-parser');
 
-// récupération d'un seul post
+// récupération d'une seule publication
 exports.getOnePublication = (req, res) => {
-    let post_id = req.params.id;
-    if (!post_id) {
+    let id = req.params.id;
+    if (!id) {
         return res.status(400).send({ error: true, message: "veuillez fournir l'id de la publication" });
     };
     // on récupère les infos de la publication et son id
-    dbConnection.query('SELECT * FROM publications WHERE id=?', (error, result) => {
+    dbConnection.query('SELECT * FROM publications WHERE id=?', id, (error, result) => {
         // si erreur
         if (error) throw error;
         // si pas d'erreur
-        return res.status(200).json({ error: false, message : result});
+        return res.status(200).send({ error: false, message : result});
     });
 };
-// création d'un publication
+// récupération de toutes les publications
+exports.getAllPublications = (req, res) => {
+    dbConnection.query('SELECT * FROM publications', (error, result) => {
+        if (error) throw error;
+        return res.send({ error: false, message: result });
+    });
+}
+// création d'une publication
 exports.createPublication = (req, res) => {
     let id_user = req.body.id_user;
     let titre = req.body.titre;
@@ -29,7 +35,7 @@ exports.createPublication = (req, res) => {
         // si erreur 
         if (error) if (error) throw error;
         // si pas d'erreur 
-        return res.status(201).json({ error: false, message: "La publication à été crée !" });
+        return res.status(201).send({ error: false, message: "La publication à été crée !" });
     });
 };
 // modification d'une publication
@@ -43,7 +49,7 @@ exports.modifyPublication = (req, res) => {
         // si erreur
         if (error) if (error) throw error;
         // si pas d'erreur
-        return res.status(201).json({ error: false, message: "Les données ont été mis à jour" });
+        return res.status(201).send({ error: false, message: "Les données ont été mis à jour" });
     });
 };
 // suppression d'une publication
