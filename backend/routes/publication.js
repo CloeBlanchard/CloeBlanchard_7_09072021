@@ -12,5 +12,6 @@ const publicationCtrls = require('../controllers/publication');
 router.get('/publication/:id', publicationCtrls.getOnePublication);
 router.post('/publication', multer, publicationCtrls.createPublication);
 router.put('/publication/:id', multer, publicationCtrls.modifyPublication);
+router.delete('/publication/:id', publicationCtrls.deletePublication);
 // Export du router
 module.exports = router;
