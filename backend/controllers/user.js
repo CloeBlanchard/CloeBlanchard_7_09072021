@@ -37,17 +37,14 @@ exports.signup = (req, res) => {
         .then((hash) => {
             req.body.mot_de_passe = hash;
             // entré de l'email dans la bdd
-            dbConnection.query('SELECT * from users WHERE email=?', req.body.email, (err, res) => {
+            dbConnection.query('SELECT * from users WHERE email=?', req.body.email, (error) => {
                 // si erreur, renvoie de l'erreur
-                if (err) {
+                if (error) {
                     return res.status(400).json({ error });
                 } else {
                     // sinon entré de la requête dans la bdd
-                    dbConnection.query('INSERT INTO users SET ?', req.body, (err, res) => {
-                        if (err) {
-                            console.log(err)
-                            return res.status(400).json({ error: true, message: "Certains champs sont vide, verifiez votre saisi !" });
-                        };
+                    dbConnection.query('INSERT INTO users SET ?', req.body, (error) => {
+                        if (error) if (error) throw error;
                         return res.status(201).json({ error: false, message : "L'utilisateur à bien été crée !" });
                     });
                 };
@@ -99,9 +96,9 @@ exports.updateUser = (req, res) => {
         return res.status(400).send({ error: user, message: "Veullez fournir l'utilisateur and son id" });
     }
     // connexion à la bdd pour mettre à jour l'utilisateur avec son id en paramaetre
-    dbConnection.query("UPDATE users SET ? WHERE id=?", [userinfo, user_id], (error, results) => {
+    dbConnection.query("UPDATE users SET ? WHERE id=?", [userinfo, user_id], (error) => {
         if (error) throw error;
-        return res.send({ error: false, data: results, message: "L'utilisateur à bien été mis à jour" });
+        return res.send({ error: false, message: "L'utilisateur à bien été mis à jour" });
     });
 };
 
@@ -113,8 +110,8 @@ exports.deleteUser = (req, res) => {
         return res.status(400).send({ error: false, message: "Veullez fournir l'id de l'utilisateur" });
     }
     // connexion à la bdd
-    dbConnection.query('DELETE FROM users WHERE id= ?', [user_id], function (error, results, fields) {
+    dbConnection.query('DELETE FROM users WHERE id= ?', [user_id], (error) => {
         if (error) throw error;
-        return res.send({ erro: false, data: results, message: "L'utilisateur à bien été supprimé" });
+        return res.send({ error: false, message: "L'utilisateur à bien été supprimé" });
     });
 }
