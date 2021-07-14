@@ -34,12 +34,12 @@ exports.createPublication = (req, res) => {
 };
 // modification d'une publication
 exports.modifyPublication = (req, res) => {
-    let id_user = req.body.id_user;
+    let id = req.params.id;
     let titre = req.body.titre;
     let corps_message = req.body.corps_message;
     let image =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
     // on se connecte, changement des données puis envoie des données dans la bdd
-    dbConnection.query('UPDATE publications SET ? WHERE id=?',  {id_user, titre, corps_message, image}, (error, result) =>  {
+    dbConnection.query('UPDATE publications SET ? WHERE id=?',  [ titre, corps_message, image, id], (error, result) =>  {
         // si erreur
         if (error) {
             return res.status(400).json({ error: true, message: "Vérifier les données saisies" });
@@ -48,3 +48,4 @@ exports.modifyPublication = (req, res) => {
         return res.status(201).json({ error: false, message: "Les données ont été mis à jour" });
     });
 };
+// suppression d'une publication
