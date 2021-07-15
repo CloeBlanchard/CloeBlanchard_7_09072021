@@ -13,6 +13,8 @@ router.get('/commentary/:id', commentaryCtrls.getOneCommentary);
 router.get('/commentarys', commentaryCtrls.getAllCommentarys);
 // création d'un commentaire
 router.post('/commentary', multer, commentaryCtrls.createCommentary);
+// modification d'un commentaire
+router.put('/commentary/:id', multer, commentaryCtrls.modifyCommentary);
 
 // Export du router
 module.exports = router;
