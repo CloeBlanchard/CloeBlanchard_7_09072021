@@ -53,57 +53,25 @@ exports.modifyPublication = (req, res) => {
     });
 };
 // suppression d'une publication
-// exports.deletePublication = (req, res) => {
-//     let public_id = req.params.id;
-//     // connexion à la bdd et suppression de la publication
-//     dbConnection.query('SELECT * FROM publications WHERE id=?', public_id, (error) => {
-//         // si l'id de publication ne correspond pas
-//         if (error) {
-//             return res.status(400).send({ error: false, message: "Veullez fournir l'id de la publication" });
-//         }
-//         let imageUrl =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-//         let filename = imageUrl.image.split('/images/')[1];
-//         fs.unlink(`images/${filename}`, () => {
-//             dbConnection.query('DELETE FROM publications WHERE id=?', [public_id, filename], (error) => {
-//                 if (error) {
-//                     return res.status(400).send({ error: true, message: error});
-//                 };
-//                 return res.status(200).send({ error: false, message: "Publication supprimé" });
-//             });
-//         });
-//     });
-// }
-// exports.deletePublication = (req, res) => {
-//     let  id = req.params.id;
-//     dbConnection.query('SELECT * FROM publications WHERE id=?', id, (error, result) => {
-//         if (error) {
-//             return res.status(400).json({ error });
-//         } else {
-//             const imageRes = result;
-//             const filename = imageRes[0].image;
-//             fs.unlink(`images/${filename}`, () => {
-//                 dbConnection.query('DELETE * FROM publications WHERE id=?', id, (error, result) => {
-//                     if (error) {
-//                         return res.status(400).json({ error });
-//                     };
-//                     return res.status(20).json({ error: false, message: result });
-//                 });
-//             });
-//         };
-//     });
-// };
-// let public_id = req.params.id;
-    // let  imageRes =  res;
-    // let filename = imageRes[0].image;
-    // // si l'utilisateur ne correspond pas
-    // if (!public_id) {
-    //     return res.status(400).json({ error: true, message: error});
-    // };
-    // fs.unlink(`image/${filename}`, () => {
-    //     // connexion à la bdd et suppression de la publication
-    //     dbConnection.query('DELETE FROM publications WHERE id=?', [public_id], (error) => {
-    //         if (error) throw error;
-    //         return res.send({ error: false, message: "Publication supprimé"});
-    //     });
-// })
-
+exports.deletePublication = (req, res) => {
+    let public_id = req.params.id;
+    // connexion a la bdd et selectionne l'id de la publication
+    dbConnection.query('SELECT * FROM publications WHERE id=?', public_id, (error, result) => {
+        // si erreur
+        if (!public_id) {
+            console.log(error);
+            return res.status(400).send({ error: true, data: result, message: error});
+        };
+        // si pas d'erreur connexion a la bdd et suppression de la publication
+            dbConnection.query('DELETE FROM publications WHERE id=?', public_id, (err, res) => {
+                // si erreur
+                if (err) {
+                    console.log(err);
+                    return res.status(400).send({ error: true, message: error });
+                }
+                
+            });
+            // si pas d'erreur
+        return res.status(200).send({ error: false, message: "La publication à été supprimé !" });
+    });
+};
