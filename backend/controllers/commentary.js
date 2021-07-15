@@ -55,3 +55,25 @@ exports.modifyCommentary = (req, res) => {
         return res.status(201).send({ error: false, message: "Les données ont été mis à jour" });
     });
 };
+// suppression d'un commentaire
+exports.deleteCommentary = (req, res) => {
+    const id = req.params.id;
+    // connexion à la bdd et selectionne l'id du commentaire
+    dbConnection.query('SELECT * FROM commentary WHERE id=?', id, (error) => {
+        // si erreur
+        if (!id) {
+            return res.status(400).send({ error: true, message: error})
+        } else {
+            // si pas d'erreur, connexion à la bdd et suppression de la publication
+            dbConnection.query('DELETE FROM commentary WHERE id=?', id, (err) => {
+                // si erreur
+                if (err) {
+                    return res.status(400).send({ error: true, message: err });
+                };
+            });
+            // si pas d'erreur
+            return res.status(200).send({ error: false, message: "Le commentaire à été supprimé !"});
+        };
+    });
+    return res.status(200).send({ error: false, message: "Commentaire supprimé !" });
+};

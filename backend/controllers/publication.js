@@ -56,17 +56,16 @@ exports.modifyPublication = (req, res) => {
 exports.deletePublication = (req, res) => {
     const id = req.params.id;
     // connexion a la bdd et selectionne l'id de la publication
-    dbConnection.query('SELECT * FROM publications WHERE id=?', id, (error, result) => {
+    dbConnection.query('SELECT * FROM publications WHERE id=?', id, (error) => {
         // si erreur
         if (!id) {
-            console.log(error);
-            return res.status(400).send({ error: true, data: result, message: error});
+            return res.status(400).send({ error: true, message: error});
         };
         // si pas d'erreur connexion a la bdd et suppression de la publication
-            dbConnection.query('DELETE FROM publications WHERE id=?', id, (err, res) => {
+            dbConnection.query('DELETE FROM publications WHERE id=?', id, (err) => {
                 // si erreur
                 if (err) {
-                    return res.status(400).send({ error: true, message: error });
+                    return res.status(400).send({ error: true, message: err });
                 }
                 
             });
