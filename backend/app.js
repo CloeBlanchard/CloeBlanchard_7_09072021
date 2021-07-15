@@ -9,6 +9,8 @@ require('dotenv').config();
 const userRoutes = require('./routes/user');
 // import du router des publications
 const publicationRoutes = require('./routes/publication');
+// import du router des commentaires
+const commentaryRoutes = require('./routes/commentary');
 
 
 // application
@@ -37,6 +39,8 @@ app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 // routes des publications
 app.use('/api', publicationRoutes);
+// routes des commentaire
+app.use('/api/response', commentaryRoutes);
 
 
 module.exports = app;
