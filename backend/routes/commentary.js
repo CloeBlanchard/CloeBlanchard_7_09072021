@@ -7,3 +7,5 @@ const commentaryCtrls = require('../controllers/commentary');
 
 // récupération d'un commentaire
 router.get('/commentary/:id', commentaryCtrls.getOneCommentary);
+// récupération de tous les commentaires
+router.get('/commentarys', commentaryCtrls.getAllCommentarys);
