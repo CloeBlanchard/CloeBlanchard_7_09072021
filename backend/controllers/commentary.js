@@ -16,3 +16,13 @@ exports.getOneCommentary = (req, res) => {
         return res.status(200).send({ error: false, message: result });
     });
 };
+// récupération de tous les commentaires
+exports.getAllCommentarys = (req, res) => {
+    // connexion à la bdd et récupération de tous les commentaires
+    dbConnection.query('SELECT * FROM commentary', (error, result) => {
+        // si erreur
+        if (error) throw error;
+        // si pas d'erreur
+        return res.status(200).send({ error: false, message: result});
+    });
+};
