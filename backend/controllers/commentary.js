@@ -41,3 +41,17 @@ exports.createCommentary = (req, res) => {
         return res.status(201).send({ error: false, message: "la publication à été crée !" });
     });
 };
+// mise à jour d'un commentaire
+exports.modifyCommentary = (req, res) => {
+    const id = req.params.id;
+    const corps_commentaire = req.body.corps_commentaire;
+    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    // connexion à la bdd, changement puis envoie des données dans la bdd
+    dbConnection.query('UPDATE commentary SET corps_commentaire=?, image=? WHERE id=?', [corps_commentaire, image, id], (error) => {
+        // si erreur
+        if (error) {
+            return res.status(400).send({ error: true, message: error });
+        }
+        return res.status(201).send({ error: false, message: "Les données ont été mis à jour" });
+    });
+};

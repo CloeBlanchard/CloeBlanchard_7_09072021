@@ -44,7 +44,7 @@ exports.modifyPublication = (req, res) => {
     const titre = req.body.titre;
     const corps_message = req.body.corps_message;
     const image =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-    // on se connecte, changement des données puis envoie des données dans la bdd
+    // on se connecte, changement puis envoie des données dans la bdd
     dbConnection.query('UPDATE publications SET ? WHERE id=?',  [ titre, corps_message, image, id ], (error) =>  {
         // si erreur
         if (error) if (error) throw error;
