@@ -26,3 +26,18 @@ exports.getAllCommentarys = (req, res) => {
         return res.status(200).send({ error: false, message: result});
     });
 };
+// création d'un commentaire
+exports.createCommentary = (req, res) => {
+    const id_post = req.body.id_post;
+    const corps_commentaire = req.body.corps_commentaire;
+    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    // connexion à la bdd puis envoie des infos de la publciation dans la bdd
+    dbConnection.query('INSERT INTO commentary SET ?', {id_post, corps_commentaire, image}, (error) => {
+        // si erreur
+        if (error) {
+            return res.status(400).send({ error: true, message: error });
+        }
+        // si pas d'erreur
+        return res.status(201).send({ error: false, message: "la publication à été crée !" });
+    });
+};

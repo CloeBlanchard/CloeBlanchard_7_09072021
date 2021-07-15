@@ -33,7 +33,7 @@ exports.createPublication = (req, res) => {
     // on se connecte puis envoie des infos de la publication dans la bdd
     dbConnection.query('INSERT INTO publications SET ?' , {id_user, titre, corps_message, image}, (error) => {
         // si erreur 
-        if (error) if (error) throw error;
+        if (error) throw error;
         // si pas d'erreur 
         return res.status(201).send({ error: false, message: "La publication à été crée !" });
     });
@@ -66,7 +66,6 @@ exports.deletePublication = (req, res) => {
             dbConnection.query('DELETE FROM publications WHERE id=?', id, (err, res) => {
                 // si erreur
                 if (err) {
-                    console.log(err);
                     return res.status(400).send({ error: true, message: error });
                 }
                 
