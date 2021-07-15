@@ -15,6 +15,8 @@ router.get('/commentarys', commentaryCtrls.getAllCommentarys);
 router.post('/commentary', multer, commentaryCtrls.createCommentary);
 // modification d'un commentaire
 router.put('/commentary/:id', multer, commentaryCtrls.modifyCommentary);
+// suppression d'un commentaire
+router.delete('/commentary/:id', commentaryCtrls.deleteCommentary);
 
 // Export du router
 module.exports = router;
