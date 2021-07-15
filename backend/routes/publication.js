@@ -17,6 +17,7 @@ router.post('/publication', multer, publicationCtrls.createPublication);
 // modification d'une publication
 router.put('/publication/:id', multer, publicationCtrls.modifyPublication);
 // suppression d'une publication
-// router.delete('/publication/:id', publicationCtrls.deletePublication);
+router.delete('/publication/:id', publicationCtrls.deletePublication);
+
 // Export du router
 module.exports = router;
