@@ -1,11 +1,10 @@
 // import de le connection de mysql
 const dbConnection = require('../db_connect');
-// import de file system
-const fs = require('fs');
 
 // récupération d'une seule publication
 exports.getOnePublication = (req, res) => {
     let id = req.params.id;
+    // si id n'est pas renseigné
     if (!id) {
         return res.status(400).send({ error: true, message: "veuillez fournir l'id de la publication" });
     };
@@ -14,14 +13,15 @@ exports.getOnePublication = (req, res) => {
         // si erreur
         if (error) throw error;
         // si pas d'erreur
-        return res.status(200).send({ error: false, message : result});
+        return res.status(200).send({ error: false, message : result });
     });
 };
 // récupération de toutes les publications
 exports.getAllPublications = (req, res) => {
+    // connexion à la bdd et récupération de toutes les publications
     dbConnection.query('SELECT * FROM publications', (error, result) => {
         if (error) throw error;
-        return res.send({ error: false, message: result });
+        return res.status(200).send({ error: false, message: result });
     });
 }
 // création d'une publication
@@ -54,16 +54,16 @@ exports.modifyPublication = (req, res) => {
 };
 // suppression d'une publication
 exports.deletePublication = (req, res) => {
-    let public_id = req.params.id;
+    let id = req.params.id;
     // connexion a la bdd et selectionne l'id de la publication
-    dbConnection.query('SELECT * FROM publications WHERE id=?', public_id, (error, result) => {
+    dbConnection.query('SELECT * FROM publications WHERE id=?', id, (error, result) => {
         // si erreur
-        if (!public_id) {
+        if (!id) {
             console.log(error);
             return res.status(400).send({ error: true, data: result, message: error});
         };
         // si pas d'erreur connexion a la bdd et suppression de la publication
-            dbConnection.query('DELETE FROM publications WHERE id=?', public_id, (err, res) => {
+            dbConnection.query('DELETE FROM publications WHERE id=?', id, (err, res) => {
                 // si erreur
                 if (err) {
                     console.log(err);
