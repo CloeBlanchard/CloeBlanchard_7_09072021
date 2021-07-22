@@ -1,5 +1,7 @@
 <template>
-  <div class="Acceuil">
+  <div class="Public">
+    
+    <button><a href="/Profil">Acceder au compte</a></button>
     <p>Création d'une publication</p>
     <form>
         <div id="formulaire_titre">
@@ -16,7 +18,7 @@
             <label>Image : </label>
             <!-- <input type="image" name="image" id="image_publication" class="formulaire_input" required> -->
         </div>
-        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire"><a href="/Publication">Envoyer la commande</a></button>
+        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire"><a href="/Publication">Publier la publication</a></button>
     </form>
   </div>
 </template>

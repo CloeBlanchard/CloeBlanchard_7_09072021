@@ -5,6 +5,9 @@ import Groupomania from './components/Groupomania.vue'
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 import Publication from './components/Publication.vue'
+import Profil from './components/Profil.vue'
+import Signup2 from './components/testSignup.vue'
+
 
 Vue.config.productionTip = false
 
@@ -24,6 +27,12 @@ const router = new VueRouter({
   }, {
     path: '/Publication',
     component: Publication
+  }, {
+    path: '/Profil',
+    component: Profil
+  }, {
+    path: '/signup2',
+    component: Signup2
   }]
 })
 
