@@ -25,10 +25,10 @@ const router = new VueRouter({
     path: '/Signup',
     component: Signup
   }, {
-    path: '/Publication',
+    path: '/publication',
     component: Publication
   }, {
-    path: '/Profil',
+    path: '/profil',
     component: Profil
   }, {
     path: '/signup2',
