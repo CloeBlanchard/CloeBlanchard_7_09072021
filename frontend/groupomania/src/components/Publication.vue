@@ -26,8 +26,5 @@
 <script>
 export default {
   name: 'Publication',
-  props: {
-    msg: String
-  }
 }
 </script>

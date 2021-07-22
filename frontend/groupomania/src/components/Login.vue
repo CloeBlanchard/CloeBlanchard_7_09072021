@@ -38,9 +38,9 @@ export default {
         "mot_de_passe": password
       })
       .then(response => {
-        // if (response.status === 201) {
-        //   location.href = '/publication'
-        // }
+        if (response.status === 201) {
+          location.href = '/publication'
+        }
         console.log(response);
       })
       .catch(e => {
