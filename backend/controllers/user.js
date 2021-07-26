@@ -60,20 +60,22 @@ exports.login = (req, res) => {
       dbConnection.query('SELECT * FROM users WHERE email=?', req.body.email, (error, result) => {
             // Vérifie que le mail correspond à celui envoyer dans la bdd
             if (result.length <= 0){
-                return res.status(500).json({ error: true, message: "L'email est inconnue à la base de donnée"});
+                return res.status(400).json({ error: true, message: "L'email est inconnue à la base de donnée"});
             } else {
                 // compare le mdp de la requete et la mdp enregistrer dans la bdd
                 bcrypt.compare(req.body.mot_de_passe, result[0].mot_de_passe)
                 .then(valid => {
                     // si non valide renvoie une erreur
                     if(!valid){
-                        return res.status(500).json({ error: true, message: "Email ou mot de passe incorrect"});
+                        return res.status(400).json({ error: true, message: "Email ou mot de passe incorrect"});
                     } else {
                         // si valide retourne l'id de l'utilisateur et le token d'authentification
                         res.status(200).json({ 
-                            user_id: result[0].id, 
+                            id: result[0].id,
+                            nom: result[0].nom,
+                            prenom: result[0].prenom,
                             // fonction du jsonwebtoken
-                            token: jwt.sign({ user_id: result[0].id }, process.env.token, 
+                            token: jwt.sign({ id: result[0].id }, process.env.Token, 
                                 // expiration du token
                                 { expiresIn: '24h' })
                         });

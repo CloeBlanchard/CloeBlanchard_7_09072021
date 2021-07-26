@@ -31,9 +31,9 @@ exports.createCommentary = (req, res) => {
     const id_post = req.body.id_post;
     const id_user = req.body.id_user;
     const corps_commentaire = req.body.corps_commentaire;
-    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     // connexion à la bdd puis envoie des infos de la publciation dans la bdd
-    dbConnection.query('INSERT INTO commentarys SET ?', {id_post, id_user, corps_commentaire, image}, (error) => {
+    dbConnection.query('INSERT INTO commentarys SET ?', {corps_commentaire, image}, (error) => {
         // si erreur
         if (error) {
             return res.status(400).send({ error: true, message: error });
@@ -46,9 +46,9 @@ exports.createCommentary = (req, res) => {
 exports.modifyCommentary = (req, res) => {
     const id = req.params.id;
     const corps_commentaire = req.body.corps_commentaire;
-    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     // connexion à la bdd, changement puis envoie des données dans la bdd
-    dbConnection.query('UPDATE commentarys SET corps_commentaire=?, image=? WHERE id=?', [corps_commentaire, image, id], (error) => {
+    dbConnection.query('UPDATE commentarys SET corps_commentaire=? WHERE id=?', [corps_commentaire, image, id], (error) => {
         // si erreur
         if (error) {
             return res.status(400).send({ error: true, message: error });

@@ -26,12 +26,11 @@ exports.getAllPublications = (req, res) => {
 }
 // création d'une publication
 exports.createPublication = (req, res) => {
-    const id_user = req.body.id_user;
     const titre = req.body.titre;
     const corps_message = req.body.corps_message;
-    const image =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     // on se connecte puis envoie des infos de la publication dans la bdd
-    dbConnection.query('INSERT INTO publications SET ?' , {id_user, titre, corps_message, image}, (error) => {
+    dbConnection.query('INSERT INTO publications SET ?' , {titre, corps_message, image}, (error) => {
         // si erreur 
         if (error) throw error;
         // si pas d'erreur 
@@ -43,7 +42,7 @@ exports.modifyPublication = (req, res) => {
     const id = req.params.id;
     const titre = req.body.titre;
     const corps_message = req.body.corps_message;
-    const image =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     // on se connecte, changement puis envoie des données dans la bdd
     dbConnection.query('UPDATE publications SET ? WHERE id=?',  [ titre, corps_message, image, id ], (error) =>  {
         // si erreur

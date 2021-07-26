@@ -14,9 +14,9 @@ router.get('/commentary/:id', auth, commentaryCtrls.getOneCommentary);
 // récupération de tous les commentaires
 router.get('/commentarys', auth, commentaryCtrls.getAllCommentarys);
 // création d'un commentaire
-router.post('/commentary', auth, multer, commentaryCtrls.createCommentary);
+router.post('/commentary', /*auth,*/ multer, commentaryCtrls.createCommentary);
 // modification d'un commentaire
-router.put('/commentary/:id', auth, multer, commentaryCtrls.modifyCommentary);
+router.put('/commentary/:id', /*auth, multer,*/ commentaryCtrls.modifyCommentary);
 // suppression d'un commentaire
 router.delete('/commentary/:id', auth, commentaryCtrls.deleteCommentary);
 
