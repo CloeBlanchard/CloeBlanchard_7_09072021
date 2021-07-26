@@ -59,51 +59,54 @@ export default {
   methods: {
     // fonction de creation d'une publication
     creationPublication() {
-      let newPublication = new FormData();
-      if (this.titre !== null) {
-        newPublication.append("titre", this.titre);
-      }
-      if (this.corps_message !== null) {
-        newPublication.append("corps_message", this.corps_message);
-      }
-      if (this.image !== null) {
-        newPublication.append("image", this.image);
-      }
-      let config = {
-        headers: {
-          authorization: "Bearer: " + this.$token,
-          "Content-Type": "application/json",
-        },
-      };
-      if (this.titre !== null || this.corps_message !== null || this.image !== null) {
-        axios.post(`http://localhost:3000/api/publication`, newPublication, config)
-        .then((res) => {
-          if (res.status === 201) {
-            this.$emit("publications");
-          }
-        })
-      }
-      // const titre = document.getElementById("titre_publication");
-      // const corps_message = document.getElementById("message_publication");
-      // const image = document.getElementById("image_publication");
-      // const token = this.$token;
-      // axios.post(`http://localhost:3000/api/publication`,
-      //   {
-      //     headers: {
-      //       'Content-Type': 'multipart/form-data',
-      //       authorization: 'Bearer: ' + token,
-      //     },
+      // let newPublication = new FormData();
+      // if (this.titre !== null) {
+      //   newPublication.append("titre", this.titre);
+      // }
+      // if (this.corps_message !== null) {
+      //   newPublication.append("corps_message", this.corps_message);
+      // }
+      // if (this.image !== null) {
+      //   newPublication.append("image", this.image);
+      // }
+      // let config = {
+      //   headers: {
+      //     authorization: "Bearer: " + this.$token,
+      //     "Content-Type": "application/json",
       //   },
-      //   {
-      //     body: {
-      //       "id_user": this.$user.id_user,
-      //       "titre": titre,
-      //       "corps_message": corps_message,
-      //       "image": image,
+      // };
+      // if (this.titre !== null || this.corps_message !== null || this.image !== null) {
+      //   axios.post(`http://localhost:3000/api/publication`, newPublication, config)
+      //   .then((res) => {
+      //     if (res.status === 201) {
+      //       this.$emit("publications");
       //     }
-      //   }
-      // )
-        // .then(this.$root.$emit("publications"));
+      //   })
+      // }
+      const titre = document.getElementById("titre_publication");
+      const corps_message = document.getElementById("message_publication");
+      const image = document.getElementById("image_publication");
+      const token = this.$token;
+      axios.post(`http://localhost:3000/api/publication`,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            authorization: 'Bearer: ' + token,
+          },
+          body: {
+            "id_user": this.$user.id_user,
+            "titre": titre,
+            "corps_message": corps_message,
+            "image": image,
+          }
+        }
+      )
+        .then(() => {
+          alert("Votre publication à été envoyé !");
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
   },
 };
