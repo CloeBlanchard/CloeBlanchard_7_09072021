@@ -44,7 +44,7 @@ exports.signup = (req, res) => {
                 } else {
                     // sinon entré de la requête dans la bdd
                     dbConnection.query('INSERT INTO users SET ?', req.body, (error) => {
-                        if (error) if (error) throw error;
+                        if (error) throw error;
                         return res.status(201).json({ error: false, message : "L'utilisateur à bien été crée !" });
                     });
                 };
@@ -93,7 +93,7 @@ exports.updateUser = (req, res) => {
     let userinfo = req.body.userinfo;
     // si l'id et les infos de l'utilisateur sont incorrecte
     if (!user_id || !userinfo) {
-        return res.status(400).send({ error: user, message: "Veullez fournir l'utilisateur and son id" });
+        return res.status(400).send({ error: user, message: "Veullez fournir l'utilisateur et son id" });
     }
     // connexion à la bdd pour mettre à jour l'utilisateur avec son id en paramaetre
     dbConnection.query("UPDATE users SET ? WHERE id=?", [userinfo, user_id], (error) => {
