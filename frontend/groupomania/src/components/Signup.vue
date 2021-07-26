@@ -51,6 +51,10 @@ export default {
         "prenom": prenom,
         "email": email,
         "mot_de_passe": password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
       .then(response => {
         if (response.status === 201) {

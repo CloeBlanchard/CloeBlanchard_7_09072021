@@ -9,8 +9,8 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
         // Décoder le token avec le packe jsonwebtoken
         const decodedToken = jwt.verify(token, Token);
-        const userId = decodedToken.userId;
-        if (req.body.userId && req.body.userId !== userId) {
+        const userId = decodedToken.id_user;
+        if (req.body.id_user && req.body.id_user !== userId) {
             throw 'Id utilisateur non valide !';
         } else {
             next();

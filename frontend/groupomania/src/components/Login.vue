@@ -13,6 +13,7 @@
             <input type="text" name="adresse" id="mdp_connexion" class="formulaire_input" required>
         </div>
         <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire"><a href="/Publication">Envoyer la commande</a></button>
+        <div class="err-msg">{{message}}</div>
     </form>
   </div>
 </template>
@@ -25,6 +26,7 @@ export default {
   // Instanciation des variables
   data() {
     return {
+      message: "",
       errors: []
     };
   },
@@ -36,15 +38,25 @@ export default {
       axios.post(`http://localhost:3000/api/auth/login`, {
         "email": email,
         "mot_de_passe": password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
       .then(response => {
+        localStorage.setItem('user', JSON.stringify(response.data));
         if (response.status === 201) {
           location.href = '/publication'
         }
         console.log(response);
       })
-      .catch(e => {
-        this.errors.push(e)
+      .catch(err => {
+        if (err.response.status === 404) {
+          this.message = "Utilisateur inconnu !";
+        }
+        if (err.response.status === 401) {
+          this.message = "Mot de passe ou email non reconnu !";
+        }
       })
 
   
