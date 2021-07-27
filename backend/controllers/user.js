@@ -74,8 +74,9 @@ exports.login = (req, res) => {
                             id: result[0].id,
                             nom: result[0].nom,
                             prenom: result[0].prenom,
+                            roleAdmin: result[0].roleAdmin,
                             // fonction du jsonwebtoken
-                            token: jwt.sign({ id: result[0].id }, process.env.Token, 
+                            token: jwt.sign({ id: result[0].id, roleAdmin: result[0].roleAdmin }, process.env.Token, 
                                 // expiration du token
                                 { expiresIn: '24h' })
                         });
