@@ -38,7 +38,7 @@
         />
       </div>
       <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">
-        Crée punlication
+        Crée publication
       </button>
     </form>
   </div>
