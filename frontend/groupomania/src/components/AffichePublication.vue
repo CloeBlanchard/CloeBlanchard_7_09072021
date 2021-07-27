@@ -3,10 +3,13 @@
       <!-- boucle sur les publications créées -->
       <article class="publication" v-for="publication in publications" :key="publication.id">
           <!-- composant pour activer la navigation utilisateur dans une application où le routeur est activé -->
-          <router-link :to="{ name: publications, params: { id: publication.id} }">
+          <router-link :to="{ name: 'publications', params: { id: publication.id} }">
               <div class="header">
                   <!-- dataFormat pour afficher la date de création de publication + affichage du nom et du prenom de l'utilisateur -->
-                  <span class="info">Crée le {{dateFormat(publication.crée_le)}} de {{publication.prenom}} {{publication.nom}}</span>
+                  <span class="info">Crée le {{dateFormat(publication.crée_le)}}</span>
+
+                    <!-- VOIRE LES JOINTURES DES TABLES POUR L'AFFICHAGE DU NOM ET PRENOM DE L'UTILISATEUR -->
+
                   <!-- condition si l'utilisateur correspond a l'id logger ou si il y a un admin -->
                   <span class="update" v-if="publication.id_user == $user.id_user || $user.roleAdmin == 1">Modifier</span>
               </div>
@@ -30,6 +33,7 @@ export default {
             publications: [],
         }
     },
+    // montage de l'instance de récupération des publications
     mounted() {
         // si les data user sont défini dans le locastorage
         if (localStorage.user != undefined) {
@@ -59,9 +63,9 @@ export default {
         },
         // fonction d'envoie de la date de création de publication
         dateFormat(date) {
-            // déclaration d'un nouvel objet
+            // evenement de date
             const event = new Date(date);
-            // délcaration des options de jour, mois etc
+            // déclaration des options de jour, mois etc
             const option = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
             // envoie de l'event
             return event.toLocaleDateString('fr-FR', option);
@@ -70,6 +74,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>
