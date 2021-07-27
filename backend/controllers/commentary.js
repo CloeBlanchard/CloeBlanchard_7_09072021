@@ -48,7 +48,7 @@ exports.modifyCommentary = (req, res) => {
     const corps_commentaire = req.body.corps_commentaire;
     const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     // connexion à la bdd, changement puis envoie des données dans la bdd
-    dbConnection.query('UPDATE commentarys SET corps_commentaire=? WHERE id=?', [corps_commentaire, image, id], (error) => {
+    dbConnection.query('UPDATE commentarys SET corps_commentaire=?, image=? WHERE id=?', [corps_commentaire, image, id], (error) => {
         // si erreur
         if (error) {
             return res.status(400).send({ error: true, message: error });

@@ -15,9 +15,9 @@ router.get('/publication/:id', auth, publicationCtrls.getOnePublication);
 // récupération de toutes les publications
 router.get('/publications', auth, publicationCtrls.getAllPublications);
 // création d'une publication
-router.post('/publication', multer, publicationCtrls.createPublication);
+router.post('/publication', auth, multer, publicationCtrls.createPublication);
 // modification d'une publication
-router.put('/publication/:id', auth, publicationCtrls.modifyPublication);
+router.put('/publication/:id', auth, multer, publicationCtrls.modifyPublication);
 // suppression d'une publication
 router.delete('/publication/:id', auth, publicationCtrls.deletePublication);
 

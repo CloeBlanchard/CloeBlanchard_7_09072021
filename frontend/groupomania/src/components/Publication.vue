@@ -27,8 +27,18 @@
         />
       </div>
 
-        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">
-        Crée publication
+      <div id="formulaire_image">
+        <label>Image : </label>
+        <input
+          type="file"
+          name="image"
+          id="image_publication"
+          class="formulaire_input"
+          @change="setImage"
+        />
+      </div>
+      <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">
+        Crée punlication
       </button>
     </form>
   </div>
@@ -43,10 +53,14 @@ export default {
     return {
       titre: "",
       corps_message: "",
+      image: null,
       errors: [],
     };
   },
   methods: {
+    setImage: function (event) {
+      this.image = event.target.files[0]
+    },
     // fonction de creation d'une publication
     creationPublication() {
       let newPublication = new FormData();
@@ -56,13 +70,16 @@ export default {
       if (this.corps_message !== null) {
         newPublication.append("corps_message", this.corps_message);
       }
+      if (this.image !== null) {
+        newPublication.append("image", this.image);
+      }
       let config = {
         headers: {
           authorization: "Bearer: " + this.$token,
           "Content-Type": "multipart/form-data",
         },
       };
-      if (this.titre !== null || this.corps_message !== null) {
+      if (this.titre !== null || this.corps_message !== null || this.image !== null) {
         axios.post(`http://localhost:3000/api/publication`, newPublication, config)
         .then((res) => {
           if (res.status === 201) {
@@ -76,6 +93,7 @@ export default {
           console.log(error);
         })
       }
+
       // const titre = document.getElementById("titre_publication");
       // const corps_message = document.getElementById("message_publication");
       // const image = document.getElementById("image_publication");
