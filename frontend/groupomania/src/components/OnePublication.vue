@@ -29,6 +29,7 @@
         <button v-if="authorized && !update" @click="update = true">Modifier</button>
         <button v-if="update" @click="update = false">Annuler les changements</button>
         <button v-if="update" @click.prevent="updatePublication">Publier les changements</button>   
+        <button v-if="update" @click="deletePublication()">Suppression de la publication</button>
     </div>
 </template>
 
@@ -98,14 +99,24 @@ export default {
                     }
                 }
             )
-            .then(response => {
-                console.log(response);
-            })
+            .then(location.href = '/affichagePublication');
         },
         // selectionne l'image choisi
-    configImage: function (event) {
-      this.image = event.target.files[0]
-    },
+        configImage: function (event) {
+            this.image = event.target.files[0]
+        },
+        deletePublication() {
+            const id_publication = this.$route.params.id;
+
+            axios.delete(`http://localhost:3000/api/publication/${id_publication}`,
+                {
+                    headers: {
+                        authorization: "Bearer: " + this.$token,
+                    }
+                }
+            )
+            .then(location.href = '/affichagePublication')
+        }
     }
 }
 </script>
