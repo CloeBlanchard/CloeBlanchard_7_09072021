@@ -19,7 +19,8 @@ exports.getOnePublication = (req, res) => {
 // récupération de toutes les publications
 exports.getAllPublications = (req, res) => {
     // connexion à la bdd et récupération de toutes les publications
-    dbConnection.query('SELECT * FROM publications', (error, result) => {
+    // jointures des tables de users et publications
+    dbConnection.query('SELECT users.nom, users.prenom, publications.id, publications.id_user, publications.titre, publications.corps_message, publications.image, publication.crée_le AS date FROM users INNER JOIN publications ON users.id = publications.id_user ORDER BY date DESC', (error, result) => {
         if (error) throw error;
         return res.status(200).send({ error: false, message: result });
     });
