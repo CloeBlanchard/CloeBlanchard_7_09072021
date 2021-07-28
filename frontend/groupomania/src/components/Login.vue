@@ -12,7 +12,7 @@
             <label>Mot de passe : </label>
             <input type="text" name="adresse" id="mdp_connexion" class="formulaire_input" required>
         </div>
-        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire"><a href="/Publication">Envoyer la commande</a></button>
+        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire"><a href="/Publication">Connexion</a></button>
         <div class="err-msg">{{message}}</div>
     </form>
   </div>

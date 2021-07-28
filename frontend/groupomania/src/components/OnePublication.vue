@@ -30,6 +30,19 @@
         <button v-if="update" @click="update = false">Annuler les changements</button>
         <button v-if="update" @click.prevent="updatePublication">Publier les changements</button>   
         <button v-if="update" @click="deletePublication()">Suppression de la publication</button>
+
+        <form @submit.prevent="addCommentary()">
+            <label for="commentaire">Laisser un commmentaire :</label>
+            <input name="nouveau_commentaire" id="commentaire" required/>
+            <button type="submit" id="envoie_commentaire">Envoyer</button>
+        </form>
+
+        <div class="commentaire" v-for="commentary in commentarys" :key="commentary.id">
+            <span class="info_commentaire">De {{commentary.prenom}} {{commentary.nom}}</span>
+            {{commentary.corps_commentaire}}
+            <button >Supprimer le commentaire</button>
+        </div>
+
     </div>
 </template>
 
@@ -43,12 +56,14 @@ export default {
         return {
             publications: [],
             authorized: false,
-            update: false
+            update: false,
+            commentarys: []
         }
     },
     // monted() appelé lorsque le composant est ajoutée au DOM
     mounted(){
         this.getOnePublication();
+        this.getAllCommentarys();
     },
     methods: {
         getOnePublication(){
@@ -116,7 +131,42 @@ export default {
                 }
             )
             .then(location.href = '/affichagePublication')
-        }
+        },
+        // récupération de tous les commentaires
+        getAllCommentarys() {
+            const id_publication = this.$route.params.id;
+            axios.get(`http://localhost:3000/api/publication/${id_publication}/commentarys`,
+                {
+                    headers: {
+                        authorization: "Bearer: " + this.$token,
+                    },
+                }
+            )
+            .then(response => {
+                this.commentarys = response.data.message
+            })
+        },
+        // ajouter un nouveau commentaire
+        addCommentary() {
+            const id_publication = this.$route.params.id;
+            const user_id = this.$user.id;
+            const corps_commentaire = document.getElementById("commentaire").value;
+
+            axios.post(`http://localhost:3000/api/publication/${id_publication}/commentary`,
+                {
+                    "id_user": user_id,
+                    "corps_commentaire": corps_commentaire,
+                },
+                {
+                    headers: {
+                        authorization: "Bearer: " + this.$token,
+                        'Content-Type': 'application/json'
+                    },
+                }
+            )
+            .then(this.getAllCommentarys());
+        },
+
     }
 }
 </script>
