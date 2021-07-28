@@ -8,6 +8,8 @@ const multer = require('../middleware/multer-config')
 const publicationCtrls = require('../controllers/publication');
 // import de l'authentification
 const auth = require('../middleware/auth');
+// import du controllers des commentaires
+const commentaryCtrls = require('../controllers/commentary');
 
 
 // récupération d'une publication
@@ -20,6 +22,10 @@ router.post('/publication', auth, multer, publicationCtrls.createPublication);
 router.put('/publication/:id', auth, multer, publicationCtrls.modifyPublication);
 // suppression d'une publication
 router.delete('/publication/:id', auth, publicationCtrls.deletePublication);
+// récupération des commentaire d'une oublication
+router.get('/publication/:id/commentarys', auth, commentaryCtrls.getAllCommentarys);
+// création d'un commentaire
+router.post('/publication/:id/commentary', auth, commentaryCtrls.createCommentary);
 
 // Export du router
 module.exports = router;

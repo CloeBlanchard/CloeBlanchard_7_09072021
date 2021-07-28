@@ -19,7 +19,7 @@ exports.getOneCommentary = (req, res) => {
 // récupération de tous les commentaires
 exports.getAllCommentarys = (req, res) => {
     // connexion à la bdd et récupération de tous les commentaires
-    dbConnection.query('SELECT * FROM commentarys', (error, result) => {
+    dbConnection.query(`SELECT users.id, users.nom, users.prenom, commentarys.id, commentarys.corps_commentaire, commentarys.id_user, commentarys.crée_le AS date FROM users INNER JOIN commentarys ON users.id = commentarys.id_user WHERE commentarys.id_post=${req.params.id} ORDER BY commentarys.crée_le DESC`, (error, result) => {
         // si erreur
         if (error) throw error;
         // si pas d'erreur
@@ -29,9 +29,10 @@ exports.getAllCommentarys = (req, res) => {
 // création d'un commentaire
 exports.createCommentary = (req, res) => {
     const corps_commentaire = req.body.corps_commentaire;
-    const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+    const id_user = req.body.id_user;
+    const id_post = req.params.id;
     // connexion à la bdd puis envoie des infos de la publciation dans la bdd
-    dbConnection.query('INSERT INTO commentarys SET ?', { corps_commentaire, image }, (error) => {
+    dbConnection.query('INSERT INTO commentarys SET ?', { corps_commentaire, id_user, id_post }, (error) => {
         // si erreur
         if (error) {
             return res.status(400).send({ error: true, message: error });
@@ -50,9 +51,8 @@ exports.modifyCommentary = (req, res) => {
             if (req.token.user_id == result[0].id_user || req.token.roleAdmin) {
                 const id = req.params.id;
                 const corps_commentaire = req.body.corps_commentaire;
-                const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
                 // connexion à la bdd, changement puis envoie des données dans la bdd
-                dbConnection.query('UPDATE commentarys SET corps_commentaire=?, image=? WHERE id=?', [corps_commentaire, image, id], (error) => {
+                dbConnection.query('UPDATE commentarys SET corps_commentaire=? WHERE id=?', [corps_commentaire, id], (error) => {
                     // si erreur
                     if (error) {
                         return res.status(400).send({ error: true, message: error });
@@ -67,7 +67,6 @@ exports.modifyCommentary = (req, res) => {
         // si pas d'erreur
         return res.status(200).send({ error: false, message: result });
     });
-
 };
 // suppression d'un commentaire
 exports.deleteCommentary = (req, res) => {
