@@ -16,6 +16,8 @@ const commentaryCtrls = require('../controllers/commentary');
 router.get('/publication/:id', auth, publicationCtrls.getOnePublication);
 // récupération de toutes les publications
 router.get('/publications', auth, publicationCtrls.getAllPublications);
+// récupération des pubblications d'un utilisateurs
+router.get('/user:id/publications', auth, publicationCtrls.getUserPublications);
 // création d'une publication
 router.post('/publication', auth, multer, publicationCtrls.createPublication);
 // modification d'une publication

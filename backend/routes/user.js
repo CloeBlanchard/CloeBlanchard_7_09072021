@@ -16,7 +16,7 @@ router.post('/login', userCtrl.login);
 // import de la modification d'un utilisateur
 router.put('/user/:id', userCtrl.updateUser);
 // import de la suppression d'un utilisateur
-router.delete('/user/:id', userCtrl.updateUser)
+router.delete('/user/:id', userCtrl.deleteUser)
 
 // Export du router
 module.exports = router;

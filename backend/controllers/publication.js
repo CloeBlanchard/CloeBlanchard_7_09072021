@@ -67,36 +67,44 @@ exports.modifyPublication = (req, res) => {
         }
     })
 }
-        // suppression d'une publication
-        exports.deletePublication = (req, res) => {
-            // sécurité supplémentaire pour la suppression des publications
-            dbConnection.query('SELECT * FROM publications WHERE id=?', req.params.id, (error, result) => {
-                // si erreur
-                if (error) { throw error; }
-                else {
-                    // si pas d'erreur vérifier le token de l'id utilisateur et le resultat de l'id utilisateur ou du token de l'admin
-                    if (req.token.user_id == result[0].id_user || req.token.roleAdmin) {
-                        // connexion a la bdd et selectionne l'id de la publication
-                        dbConnection.query('SELECT * FROM publications WHERE id=?', req.params.id, (error) => {
-                            // si erreur
-                            if (!req.params.id) {
-                                return res.status(400).send({ error: true, message: error });
-                            };
-                            // si pas d'erreur connexion a la bdd et suppression de la publication
-                            dbConnection.query('DELETE FROM publications WHERE id=?', req.params.id, (err) => {
-                                // si erreur
-                                if (err) {
-                                    return res.status(400).send({ error: true, message: err });
-                                }
-
-                            });
-                            // si pas d'erreur
-                            return res.status(200).send({ error: false, message: "La publication à été supprimé !" });
-                        });
-                    } else {
+// suppression d'une publication
+exports.deletePublication = (req, res) => {
+    // sécurité supplémentaire pour la suppression des publications
+    dbConnection.query('SELECT * FROM publications WHERE id=?', req.params.id, (error, result) => {
+        // si erreur
+        if (error) { throw error; }
+        else {
+            // si pas d'erreur vérifier le token de l'id utilisateur et le resultat de l'id utilisateur ou du token de l'admin
+            if (req.token.user_id == result[0].id_user || req.token.roleAdmin) {
+                // connexion a la bdd et selectionne l'id de la publication
+                dbConnection.query('SELECT * FROM publications WHERE id=?', req.params.id, (error) => {
+                    // si erreur
+                    if (!req.params.id) {
+                        return res.status(400).send({ error: true, message: error });
+                    };
+                    // si pas d'erreur connexion a la bdd et suppression de la publication
+                    dbConnection.query('DELETE FROM publications WHERE id=?', req.params.id, (err) => {
                         // si erreur
-                        return res.status(401).send({ error: true, message: "Vous n'avez pas les droits" });
-                    }
-                }
-            })
+                        if (err) {
+                            return res.status(400).send({ error: true, message: err });
+                        }
+                    });
+                    // si pas d'erreur
+                    return res.status(200).send({ error: false, message: "La publication à été supprimé !" });
+                });
+            } else {
+                // si erreur
+                return res.status(401).send({ error: true, message: "Vous n'avez pas les droits" });
+            }
         }
+    })
+}
+// récupération des publications d'un utilisateur
+exports.getUserPublications = (req, res) => {
+    dbConnection.query(`SELECT * FROM publications WHERE publications.id_user=${req.params.id}`, (err, result) => {
+        if (err) {
+            return res.status(400).json({ error: true, message: "Impossible de récupérer les publication de cette utilisateur"});
+        };
+        return res.status(200).send({ error: false, message: result});
+    });
+}

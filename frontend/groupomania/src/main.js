@@ -39,11 +39,12 @@ const router = new VueRouter({
     path: '/publication',
     component: Publication
   }, {
-    path: '/profil',
+    path: '/profil/:id',
     component: Profil
   }, {
     path: '/affichagePublication',
-    component: AffichePublication
+    component: AffichePublication,
+    name: 'Publications'
   }, {
     path: '/affichageOnePublication/:id',
     component: OnePublication,
