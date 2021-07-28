@@ -40,7 +40,7 @@
         <div class="commentaire" v-for="commentary in commentarys" :key="commentary.id">
             <span class="info_commentaire">De {{commentary.prenom}} {{commentary.nom}}</span>
             {{commentary.corps_commentaire}}
-            <button >Supprimer le commentaire</button>
+            <button @click="deleteCommentary(commentary.id)" v-if="commentary.id_user == $user.id || $user.roleAdmin == 1" :key="commentary.id">Supprimer le commentaire</button>
         </div>
 
     </div>
@@ -78,7 +78,6 @@ export default {
             )
             .then(response => {
                 this.publications = response.data.message[0];
-                console.log(this.publications);
 
                 // si l'id de l'user est égale l'id user de la publication
                 // ou le roleAdmin est égale à 1
@@ -122,7 +121,6 @@ export default {
         },
         deletePublication() {
             const id_publication = this.$route.params.id;
-
             axios.delete(`http://localhost:3000/api/publication/${id_publication}`,
                 {
                     headers: {
@@ -166,7 +164,17 @@ export default {
             )
             .then(this.getAllCommentarys());
         },
-
+        deleteCommentary(commentaryId) {
+            axios.delete(`http://localhost:3000/api/publication/commentary/${commentaryId}`,
+                {
+                    headers: {
+                        authorization: "Bearer: " + this.$token,
+                        'Content-Type': 'application/json'
+                    },
+                }
+            )
+            .then(this.getAllCommentarys());
+        },
     }
 }
 </script>
