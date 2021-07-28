@@ -14,6 +14,8 @@ import Publication from './components/Publication.vue'
 import Profil from './components/Profil.vue'
 // import de l'affichage des publications
 import AffichePublication from './components/AffichePublication.vue'
+// import de l'affichage d'une publication
+import OnePublication from './components/OnePublication.vue'
 
 
 Vue.config.productionTip = false
@@ -42,6 +44,10 @@ const router = new VueRouter({
   }, {
     path: '/affichagePublication',
     component: AffichePublication
+  }, {
+    path: '/affichageOnePublication/:id',
+    component: OnePublication,
+    name: 'OnePublication'
   }]
 })
 

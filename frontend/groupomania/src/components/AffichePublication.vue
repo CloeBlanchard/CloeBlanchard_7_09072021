@@ -3,13 +3,11 @@
       <!-- boucle sur les publications créées -->
       <article class="publication" v-for="publication in publications" :key="publication.id">
           <!-- composant pour activer la navigation utilisateur dans une application où le routeur est activé -->
-          <router-link :to="{ name: 'publications', params: { id: publication.id} }">
-              <div class="header">
+          <router-link :to="{ name: 'OnePublication', params: { id: publication.id} }">
+              <div>
                   <!-- dataFormat pour afficher la date de création de publication + affichage du nom et du prenom de l'utilisateur -->
-                  <span class="info">Crée le {{dateFormat(publication.crée_le)}}</span>
-
-                    <!-- VOIRE LES JOINTURES DES TABLES POUR L'AFFICHAGE DU NOM ET PRENOM DE L'UTILISATEUR -->
-
+                  <span class="info">Crée le {{dateFormat(publication.date)}} par {{publication.prenom}} {{publication.nom}}</span>
+            
                   <!-- condition si l'utilisateur correspond a l'id logger ou si il y a un admin -->
                   <span class="update" v-if="publication.id_user == $user.id_user || $user.roleAdmin == 1">Modifier</span>
               </div>
@@ -20,6 +18,7 @@
               <!-- affichage du message -->
               <img :src="publication.image" alt="image choisie">
           </router-link>
+          
       </article>
   </div>
 </template>
