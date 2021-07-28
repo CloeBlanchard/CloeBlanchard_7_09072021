@@ -62,7 +62,6 @@ export default {
       let config = {
         headers: {
           authorization: "Bearer: " + this.$token,
-          "Content-Type": "multipart/form-data",
         },
       };
       // condition pour envoyer le titre, le corps_message et l'image dans la requete

@@ -53,16 +53,16 @@ exports.modifyPublication = (req, res) => {
                 const corps_message = req.body.corps_message;
                 const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
                 // on se connecte, changement puis envoie des données dans la bdd
-                dbConnection.query('UPDATE publications SET ? WHERE id=?', [titre, corps_message, image, id], (error) => {
+                dbConnection.query('UPDATE publications SET titre=?, corps_message=?, image=? WHERE id=?', [titre, corps_message, image, id], (error) => {
                     // si erreur
-                    if (error) { throw error; }
-                    // si pas d'erreur
-                    else {
-                        // si erreur
+                    if (error) { 
                         return res.status(401).send({ error: true, message: "Vous n'avez pas les droits" });
+                    // si pas d'erreur
+                    } else {
+                        // si erreur
+                        return res.status(201).send({ error: false, message: "Les données ont été mis à jour" });
                     }
                 })
-                return res.status(201).send({ error: false, message: "Les données ont été mis à jour" });
             };
         }
     })
