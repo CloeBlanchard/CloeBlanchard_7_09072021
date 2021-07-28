@@ -76,15 +76,15 @@ exports.deleteCommentary = (req, res) => {
         if (error) { throw error; }
         else {
             if (req.token.user_id == result[0].id_user || req.token.roleAdmin) {
-                const id = req.params.id;
+                
                 // connexion à la bdd et selectionne l'id du commentaire
-                dbConnection.query('SELECT * FROM commentarys WHERE id=?', id, (error) => {
+                dbConnection.query('SELECT * FROM commentarys WHERE id=?', req.params.id, (error) => {
                     // si erreur
-                    if (!id) {
+                    if (!req.params.id) {
                         return res.status(400).send({ error: true, message: error })
                     } else {
                         // si pas d'erreur, connexion à la bdd et suppression de la publication
-                        dbConnection.query('DELETE FROM commentarys WHERE id=?', id, (err) => {
+                        dbConnection.query('DELETE FROM commentarys WHERE id=?', req.params.id, (err) => {
                             // si erreur
                             if (err) {
                                 return res.status(400).send({ error: true, message: err });
@@ -94,7 +94,6 @@ exports.deleteCommentary = (req, res) => {
                         return res.status(200).send({ error: false, message: "Le commentaire à été supprimé !" });
                     };
                 });
-                return res.status(200).send({ error: false, message: "Commentaire supprimé !" });
             } else {
                 // si erreur
                 return res.status(401).send({ error: true, message: "Vous n'avez pas les droits" });

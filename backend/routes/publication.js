@@ -26,6 +26,8 @@ router.delete('/publication/:id', auth, publicationCtrls.deletePublication);
 router.get('/publication/:id/commentarys', auth, commentaryCtrls.getAllCommentarys);
 // création d'un commentaire
 router.post('/publication/:id/commentary', auth, commentaryCtrls.createCommentary);
+// suppression d'un commentaire
+router.delete('/publication/commentary/:id', auth, commentaryCtrls.deleteCommentary);
 
 // Export du router
 module.exports = router;
