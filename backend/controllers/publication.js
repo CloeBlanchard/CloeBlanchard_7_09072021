@@ -18,9 +18,9 @@ exports.getOnePublication = (req, res) => {
 };
 // récupération de toutes les publications
 exports.getAllPublications = (req, res) => {
-    // connexion à la bdd et récupération de toutes les publications
-    // jointures des tables de users et publications
-    dbConnection.query('SELECT users.nom, users.prenom, publications.id, publications.id_user, publications.titre, publications.corps_message, publications.image, publication.crée_le AS date FROM users INNER JOIN publications ON users.id = publications.id_user ORDER BY date DESC', (error, result) => {
+    // connexion à la bdd et récupération de toutes les publications par ordre descendant (dernière publication crée première a être afficher)
+    // jointures des tables de users et publications changement du "crée_le" en "date"
+    dbConnection.query('SELECT users.nom, users.prenom, publications.id, publications.id_user, publications.titre, publications.corps_message, publications.image, publications.crée_le AS date FROM users INNER JOIN publications ON users.id = publications.id_user ORDER BY date DESC', (error, result) => {
         if (error) throw error;
         return res.status(200).send({ error: false, message: result });
     });
@@ -41,10 +41,12 @@ exports.createPublication = (req, res) => {
 };
 // modification d'une publication
 exports.modifyPublication = (req, res) => {
+    // sécurité supplémentaire pour la modification des publications
     dbConnection.query('SELECT * FROM publications WHERE id=?', req.params.id, (error, result) => {
         // si erreur
         if (error) { throw error; }
         else {
+            // si pas d'erreur vérifier le token de l'id utilisateur ou du token de l'admin
             if (req.token.user_id == result[0].id_user || req.token.roleAdmin) {
                 const id = req.params.id;
                 const titre = req.body.titre;
@@ -67,10 +69,12 @@ exports.modifyPublication = (req, res) => {
 }
         // suppression d'une publication
         exports.deletePublication = (req, res) => {
+            // sécurité supplémentaire pour la suppression des publications
             dbConnection.query('SELECT * FROM publications WHERE id=?', req.params.id, (error, result) => {
                 // si erreur
                 if (error) { throw error; }
                 else {
+                    // si pas d'erreur vérifier le token de l'id utilisateur et le resultat de l'id utilisateur ou du token de l'admin
                     if (req.token.user_id == result[0].id_user || req.token.roleAdmin) {
                         // connexion a la bdd et selectionne l'id de la publication
                         dbConnection.query('SELECT * FROM publications WHERE id=?', req.params.id, (error) => {
