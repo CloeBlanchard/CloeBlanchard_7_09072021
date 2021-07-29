@@ -1,19 +1,9 @@
 <template>
   <div id="app">
-    <router-view><Groupomania/></router-view>
+    <router-view/>
   </div>
 </template>
 
-<script>
-import Groupomania from './components/Groupomania.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Groupomania,
-  }
-}
-</script>
 
 <style>
 #app {

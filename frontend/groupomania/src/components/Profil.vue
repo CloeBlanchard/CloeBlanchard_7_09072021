@@ -1,6 +1,5 @@
 <template>
   <div class="Profile">
-      <img id="logo" alt="Vue logo" src="../assets/logo.svg">
     <p>{{this.$user.nom}}</p>
     <p>{{this.$user.prenom}}</p>
 
