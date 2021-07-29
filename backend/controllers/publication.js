@@ -27,12 +27,12 @@ exports.getAllPublications = (req, res) => {
 }
 // création d'une publication
 exports.createPublication = (req, res) => {
-    const id_user = req.token.user_id;
+    const id_user = req.token.id;
     const titre = req.body.titre;
     const corps_message = req.body.corps_message;
     const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     // on se connecte puis envoie des infos de la publication dans la bdd
-    dbConnection.query('INSERT INTO publications SET ?', { id_user, titre, corps_message, image }, (error) => {
+    dbConnection.query(`INSERT INTO publications SET ?`, { id_user, titre, corps_message, image}, (error) => {
         // si erreur 
         if (error) throw error;
         // si pas d'erreur 
@@ -98,4 +98,13 @@ exports.deletePublication = (req, res) => {
             }
         }
     })
+}
+// récupération des publications d'un utilisateur
+exports.getUserPublications = (req, res) => {
+    dbConnection.query(`SELECT * FROM publications WHERE publications.id_user=${req.params.id}`, (err, result) => {
+        if (err) {
+            return res.status(400).json({ error: true, message: "Impossible de récupérer les publication de cette utilisateur"});
+        };
+        return res.status(200).send({ error: false, message: result});
+    });
 }

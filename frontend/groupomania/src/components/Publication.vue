@@ -1,5 +1,6 @@
 <template>
   <div class="Public">
+    <button><a href="/Profil">Acceder au compte</a></button>
     <p>Création d'une publication</p>
     <!-- fonction de création d'une publication -->
     <form @submit.prevent="creationPublication()">
@@ -15,7 +16,7 @@
       </div>
       <div id="formulaire_image">
         <label>Image : </label>
-        <input type="file" name="image" id="image_publication" class="formulaire_input" @change="setImage"/>
+        <input type="file" @change="setImage" name="image" id="image_publication" class="formulaire_input" required/>
       </div>
       <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">
         Crée publication
@@ -37,51 +38,55 @@ export default {
       errors: [],
     };
   },
+     
   methods: {
-    // selectionne l'image choisi
+    // fichier de l'image
     setImage: function (event) {
       this.image = event.target.files[0]
     },
-    // fonction de creation d'une publication
+    // fonction de creation d'un publication
     creationPublication() {
-      let newPublication = new FormData();
-      // condition si le champ titre est complet
+      const id_user = this.$user.id;
+      let PublicationForm = new FormData();
       if (this.titre !== null) {
-        newPublication.append("titre", this.titre);
+        PublicationForm.append("titre", this.titre);
       }
-      // condition si le champ corps_message est complet
       if (this.corps_message !== null) {
-        newPublication.append("corps_message", this.corps_message);
+        PublicationForm.append("corps_message", this.corps_message);
       }
-      // condition si le champ image est complet
       if (this.image !== null) {
-        newPublication.append("image", this.image);
+        PublicationForm.append("image", this.image);
       }
-      // configuration des headers
       let config = {
         headers: {
           authorization: "Bearer: " + this.$token,
+        }
+      }
+      console.log(this.$user.id);
+      console.log(this.titre);
+      console.log(this.corps_message);
+      console.log(this.image);
+      console.log(this.$token);
+      if (this.titre !== null || this.corps_message !== null || this.image) {
+        axios.post(`http://localhost:3000/api/publication`, PublicationForm, config,
+        {
+          "id_user": id_user,
         },
-      };
-      // condition pour envoyer le titre, le corps_message et l'image dans la requete
-      if (this.titre !== null || this.corps_message !== null || this.image !== null) {
-        axios.post(`http://localhost:3000/api/publication`, newPublication, config)
-        .then((res) => {
-          // si la requete est validé
-          if (res.status === 201) {
+      )
+      .then((response) => {
+          if (response.status === 201) {
             this.$emit("publications");
           }
         })
-        // alert sur la publication crée
-        .then(() => {
-          alert("Votre publication à été envoyé !");
-        })
-        // si la publication n'est pas crée
+      .then(() => {
+        alert("Votré publication à été envoyé !")
+        location.href = '/affichagePublication'
+      })
         .catch((error) => {
           console.log(error);
         })
-      } 
-    },
-  },
-};
+      }
+    }
+  }
+}
 </script>

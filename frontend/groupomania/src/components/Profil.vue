@@ -34,7 +34,7 @@ export default {
     // suppression de l'utilisateur
     logOut() {
       localStorage.removeItem('user');
-      location.href = "/"
+      location.href = "/login"
     },
     deleteUser() {
       const id_user = this.$user.id;

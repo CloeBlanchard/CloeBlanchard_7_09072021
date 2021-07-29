@@ -58,15 +58,13 @@ export default {
       })
       .then(response => {
         if (response.status === 201) {
-          location.href = '/affichagePublication'
+          location.href = '/login'
         }
         console.log(response);
       })
       .catch(e => {
         this.errors.push(e)
       })
-
-  
     }
   }
 }

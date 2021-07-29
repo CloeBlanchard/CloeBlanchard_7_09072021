@@ -1,5 +1,6 @@
 <template>
   <div>
+      <button><a href="/publication">Créer une publication</a></button>
       <!-- boucle sur les publications créées -->
       <article class="publication" v-for="publication in publications" :key="publication.id">
           <!-- composant pour activer la navigation utilisateur dans une application où le routeur est activé -->
@@ -29,6 +30,7 @@ export default {
     name: 'AffichePublication',
     data() {
         return {
+            errors: [],
             publications: [],
         }
     },
