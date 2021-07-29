@@ -99,12 +99,3 @@ exports.deletePublication = (req, res) => {
         }
     })
 }
-// récupération des publications d'un utilisateur
-exports.getUserPublications = (req, res) => {
-    dbConnection.query(`SELECT * FROM publications WHERE publications.id_user=${req.params.id}`, (err, result) => {
-        if (err) {
-            return res.status(400).json({ error: true, message: "Impossible de récupérer les publication de cette utilisateur"});
-        };
-        return res.status(200).send({ error: false, message: result});
-    });
-}
