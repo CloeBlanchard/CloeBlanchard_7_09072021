@@ -3,6 +3,7 @@
     <p>{{this.$user.nom}}</p>
     <p>{{this.$user.prenom}}</p>
 
+    <button @click="logOut()">Déconnexion</button>
     <button @click="deleteUser()">Supprimer le compte</button>
     </div>
     
@@ -29,6 +30,11 @@ export default {
         }
       )
       .then(response => this.publications = response.data.message)
+    },
+    // suppression de l'utilisateur
+    logOut() {
+      localStorage.removeItem('user');
+      location.href = "/"
     },
     deleteUser() {
       const id_user = this.$user.id;

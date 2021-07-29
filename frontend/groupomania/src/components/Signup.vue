@@ -58,7 +58,7 @@ export default {
       })
       .then(response => {
         if (response.status === 201) {
-          location.href = '/login'
+          location.href = '/affichagePublication'
         }
         console.log(response);
       })
