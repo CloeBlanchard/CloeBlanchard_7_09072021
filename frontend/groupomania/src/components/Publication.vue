@@ -1,6 +1,6 @@
 <template>
   <div class="Public">
-    <button><a href="/Profil">Acceder au compte</a></button>
+    <button>Acceder au compte</button>
     <p>Création d'une publication</p>
     <!-- fonction de création d'une publication -->
     <form @submit.prevent="creationPublication()">

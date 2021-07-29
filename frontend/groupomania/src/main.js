@@ -40,7 +40,8 @@ const router = new VueRouter({
     component: Publication
   }, {
     path: '/profil/:id',
-    component: Profil
+    component: Profil,
+    name: 'ProfilUtilisateur'
   }, {
     path: '/affichagePublication',
     component: AffichePublication,

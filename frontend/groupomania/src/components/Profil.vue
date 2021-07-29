@@ -4,13 +4,9 @@
     <p>{{this.$user.nom}}</p>
     <p>{{this.$user.prenom}}</p>
 
-    <div v-for="publication in publications" :key="publication.id">
-      <router-link :to="{ name: 'Publications', params: { id: publication.id }}">
-        <p>{{publication.titre}}</p>
-      </router-link>
-    </div>
     <button @click="deleteUser()">Supprimer le compte</button>
-  </div>
+    </div>
+    
 </template>
 
 <script>
@@ -18,23 +14,18 @@
 import axios from 'axios'
 export default {
   name: 'Profile',
-  data() {
-    return {
-      publications: [],
-    }
-  },
+  // montage de l'instance de récupération des publications
   mounted() {
-    this.getUserPublications();
+    this.getOneUser();
   },
   methods: {
     // récupération des publications d'un utilisateur
-    getUserPublications() {
+    getOneUser() {
       const id_user = this.$user.id;
-      axios.get(`http://localhost:3000/api/user${id_user}/publications`,
+      axios.get(`http://localhost:3000/api/auth/user/${id_user}`,
         {
           headers: {
             authorization: "Bearer: " + this.$token,
-            "Content-Type": "application/json",
           },
         }
       )
@@ -42,7 +33,7 @@ export default {
     },
     deleteUser() {
       const id_user = this.$user.id;
-      axios.delete(`http://localhost:3000/api/auth/${id_user}`,
+      axios.delete(`http://localhost:3000/api/auth/user/${id_user}`,
         {
           headers: {
             authorization: "Bearer: " + this.$token,
@@ -51,6 +42,7 @@ export default {
         }
       )
       .then(localStorage.removeItem('user'))
+      .then(location.href = "/");
     }
   }
 }
