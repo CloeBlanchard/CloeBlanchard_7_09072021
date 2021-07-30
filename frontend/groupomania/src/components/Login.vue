@@ -44,6 +44,9 @@ export default {
       })
       .then(response => {
         localStorage.setItem('user', JSON.stringify(response.data));
+        if (response.status === 200) {
+          location.href = "/affichagePublication"
+        }
         console.log(response.data);
       })
       .catch(err => {
