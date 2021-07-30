@@ -10,7 +10,7 @@
 
         <div id="formulaire_adresse">
             <label class="password">Mot de passe : </label>
-            <p><input type="text" name="adresse" id="mdp_connexion" class="formulaire_input" required></p>
+            <p><input type="password" name="adresse" id="mdp_connexion" class="formulaire_input" required></p>
         </div>
         <button class="btn-connecte" type="submit" name="envoyer_formulaire">Connexion</button>
     </form>
