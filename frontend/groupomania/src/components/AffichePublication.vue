@@ -1,6 +1,7 @@
 <template>
   <div>
       <button><a href="/publication">Créer une publication</a></button>
+      <button><a href="/affichagePublication/profil/:id">Acceder a votre profil</a></button>
       <!-- boucle sur les publications créées -->
       <article class="publication" v-for="publication in publications" :key="publication.id">
           <!-- composant pour activer la navigation utilisateur dans une application où le routeur est activé -->
