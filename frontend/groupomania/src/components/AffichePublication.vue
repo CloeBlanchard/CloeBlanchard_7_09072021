@@ -77,7 +77,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .redirection_create a , .redirection_profil a {
     color: lightgrey;
 }
