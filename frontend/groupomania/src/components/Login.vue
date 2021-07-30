@@ -12,8 +12,7 @@
             <label>Mot de passe : </label>
             <input type="text" name="adresse" id="mdp_connexion" class="formulaire_input" required>
         </div>
-        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire"><a href="/affichagePublication">Connexion</a></button>
-        <div class="err-msg">{{message}}</div>
+        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">Connexion</button>
     </form>
   </div>
 </template>
@@ -45,10 +44,7 @@ export default {
       })
       .then(response => {
         localStorage.setItem('user', JSON.stringify(response.data));
-        if (response.status === 201) {
-          location.href = '/affichagePublication'
-        }
-        console.log(response);
+        console.log(response.data);
       })
       .catch(err => {
         if (err.response.status === 404) {
