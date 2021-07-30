@@ -16,7 +16,7 @@
       </div>
       <div id="formulaire_image">
         <label>Image : </label>
-        <input type="file" @change="setImage" name="image" id="image_publication" class="formulaire_input" required/>
+        <input type="file" @change="configImage" name="image" id="image_publication" class="formulaire_input" required/>
       </div>
       <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">
         Crée publication
@@ -41,7 +41,7 @@ export default {
      
   methods: {
     // fichier de l'image
-    setImage: function (event) {
+    configImage: function (event) {
       this.image = event.target.files[0]
     },
     // fonction de creation d'un publication
