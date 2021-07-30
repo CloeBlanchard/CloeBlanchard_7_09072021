@@ -1,26 +1,24 @@
 <template>
   <div class="Public">
-    <button><a href="/Profil">Acceder au compte</a></button>
-    <p>Création d'une publication</p>
+    <img id="logo" alt="Vue logo" src="../assets/logo.svg">
+    <h1 class="accueil">Création d'une publication</h1>
     <!-- fonction de création d'une publication -->
-    <form @submit.prevent="creationPublication()">
+    <form class="new_publication" @submit.prevent="creationPublication()">
       <div id="formulaire_titre">
-        <label>Titre : </label>
-        <input type="text" v-model="titre" name="titre" id="titre_publication" class="formulaire_input" required/>
+        <p class="form"><label>Titre : </label></p>
+        <p><input type="text" v-model="titre" name="titre" id="titre_publication" class="formulaire_input" required/></p>
       </div>
 
       <div id="formulaire_corps-message">
-        <label>Corps de la publication : </label>
+        <p class="form"><label>Corps de la publication : </label></p>
         <!-- utilisation de v-model pour crée une liaison de donnée sur les champs du formulaire -->
-        <input type="text" v-model="corps_message" name="corps_message" id="message_publication" class="formulaire_input" required/>
+        <p><input type="text" v-model="corps_message" name="corps_message" id="message_publication" class="formulaire_input" required/></p>
       </div>
       <div id="formulaire_image">
-        <label>Image : </label>
-        <input type="file" @change="configImage" name="image" id="image_publication" class="formulaire_input" required/>
+        <p class="form"><label>Image : </label></p>
+        <p><input type="file" @change="configImage" name="image" id="image_publication" class="formulaire_input" required/></p>
       </div>
-      <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">
-        Crée publication
-      </button>
+      <p><button class="create_publication" id="envoyer_formulaire" type="submit" name="envoyer_formulaire">Créer publication</button></p>
     </form>
   </div>
 </template>
@@ -90,3 +88,82 @@ export default {
   }
 }
 </script>
+
+<style>
+.new_publication {
+  background-color: #d1515a;
+  border-radius: 20px;
+  padding: 10px;
+}
+.redirection_profil {
+  margin-top: 10px;
+}
+.formulaire_input {
+  font-size: 20px;
+  border-radius: 30px;
+  color: lightgrey;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527), -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
+}
+.create_publication {
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: #091f43;
+  color: lightgrey;
+  padding: 8px;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527), -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
+}
+.create_publication:hover, .formulaire_input:hover {
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.65), -0.4em 0 0.4em rgba(0, 0, 0, 0.65);
+  font-size: 23px;
+}
+.form {
+  font-size: 20px;
+  color: #091f43;
+  font-weight: bold;
+}
+@media screen and (min-width: 500px) {
+  .new_publication {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+@media screen and (min-width: 660px) {
+  .new_publication {
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .new_publication {
+    margin-left: 140px;
+    margin-right: 140px;
+  }
+  .create_publication {
+    margin-top: 20px;
+  }
+}
+@media screen and (min-width: 870px) {
+  .new_publication {
+    margin-left: 170px;
+    margin-right: 170px;
+  }
+}
+@media screen and (min-width: 970px) {
+  .new_publication {
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+}
+@media screen and (min-width: 870px) {
+  .new_publication {
+    margin-left: 260px;
+    margin-right: 260px;
+  }
+}
+@media screen and (min-width: 870px) {
+  .new_publication {
+    margin-left: 300px;
+    margin-right: 300px;
+  }
+}
+</style>
