@@ -47,6 +47,10 @@ a {
   border-radius: 10px;
   box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527), -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
 }
+.btn_inscrit:hover, .btn-connecte:hover {
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.65), -0.4em 0 0.4em rgba(0, 0, 0, 0.65);
+  font-size: 23px;
+}
 @media screen and (min-width: 614px) {
   .accueil {
     margin-bottom: 40px;
