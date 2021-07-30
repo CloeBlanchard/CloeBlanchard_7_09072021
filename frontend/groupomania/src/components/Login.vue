@@ -1,18 +1,18 @@
 <template>
   <div class="Login">
     <img id="logo" alt="Vue logo" src="../assets/logo.svg">
-    <h1>Connectez-vous</h1>
-    <form @submit.prevent="connection()">
+    <form class="formulaire" @submit.prevent="connection()">
+      <h1 class="accueil">Connectez-vous</h1>
         <div id="formulaire_mail">
-            <label>Adresse mail : </label>
-            <input type="text" name="mail" id="mail_connexion" class="formulaire_input" required>
+            <label class="mail">Adresse mail : </label>
+            <p><input type="text" name="mail" id="mail_connexion" class="formulaire_input" required></p>
         </div>
 
         <div id="formulaire_adresse">
-            <label>Mot de passe : </label>
-            <input type="text" name="adresse" id="mdp_connexion" class="formulaire_input" required>
+            <label class="password">Mot de passe : </label>
+            <p><input type="text" name="adresse" id="mdp_connexion" class="formulaire_input" required></p>
         </div>
-        <button id="envoyer_formulaire" type="submit" name="envoyer_formulaire">Connexion</button>
+        <button class="btn-connecte" type="submit" name="envoyer_formulaire">Connexion</button>
     </form>
   </div>
 </template>
@@ -61,4 +61,63 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.accueil {
+  font-size: 30px;
+}
+.formulaire {
+  margin-top: 50px;
+  background-color: #d1515a;
+  padding: 15px;
+  border-radius: 20px;
+  padding-bottom: 30px;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.356), -0.4em 0 0.4em rgba(0, 0, 0, 0.356);
+}
+.formulaire_input {
+  font-size: 20px;
+}
+.mail, .password {
+  font-size: 25px;
+  color: #091f43;
+}
+.formulaire_mail, .formulaire_adresse {
+  margin-top: 20px;
+}
+.btn-connecte {
+  margin-top: 15px;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+}
+.btn-connecte:hover {
+  font-size: 22px;
+}
+@media screen and (min-width: 614px) {
+  .accueil {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .formulaire {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+@media screen and (min-width: 868px) {
+  .formulaire {
+    margin-left: 150px;
+    margin-right: 150px;
+  }
+}
+@media screen and (min-width: 920px) {
+  .formulaire {
+    margin-left: 180px;
+    margin-right: 180px;
+  }
+}
+@media screen and (min-width: 1080px) {
+  .formulaire {
+    margin-left: 220px;
+    margin-right: 220px;
+  }
+}
 </style>
