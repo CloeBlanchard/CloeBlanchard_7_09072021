@@ -1,5 +1,6 @@
 <template>
     <div class="one_publication">
+        <button><a href="/affichagePublication">Aller aux publications</a></button>
         <!-- si la publication n'est pas modififié -->
         <div class="publication" v-if="!update">
                 <!-- affichage du titre -->
@@ -38,7 +39,7 @@
         </form>
 
         <div class="commentaire" v-for="commentary in commentarys" :key="commentary.id">
-            <span class="info_commentaire">De {{commentary.prenom}} {{commentary.nom}}</span>
+            <span class="info_commentaire">Crée le {{dateFormat(commentary.date)}} par {{commentary.prenom}} {{commentary.nom}} : </span>
             {{commentary.corps_commentaire}}
             <button @click="deleteCommentary(commentary.id)" v-if="commentary.id_user == $user.id || $user.roleAdmin == 1" :key="commentary.id">Supprimer le commentaire</button>
         </div>
@@ -175,6 +176,15 @@ export default {
             )
             .then(this.getAllCommentarys());
         },
+        // fonction d'envoie de la date de création de publication
+        dateFormat(date) {
+            // evenement de date
+            const event = new Date(date);
+            // déclaration des options de jour, mois etc
+            const option = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+            // envoie de l'event
+            return event.toLocaleDateString('fr-FR', option);
+        }
     }
 }
 </script>
