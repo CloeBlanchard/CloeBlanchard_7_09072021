@@ -3,8 +3,8 @@
     <img id="logo" alt="Vue logo" src="../assets/logo.svg">
     <h1 class="accueil">Bienvenue sur le réseau social de votre entreprise</h1>
     <div class="redirection">
-      <p class="inscription">Vous pouvez vous inscrire ici :</p><button class="btn_inscrit"><a href="/Signup">Inscription</a></button>
-      <p class="connexion">Si vous êtes déjà inscrit, vous pouvez vous connecter ici :</p><button class="btn-connecte"><a href="/Login">Connexion</a></button>
+      <p class="inscription">Vous pouvez vous inscrire ici :</p><button class="btn_inscrit"><a class="inscrit_redirection" href="/Signup">Inscription</a></button>
+      <p class="connexion">Si vous êtes déjà inscrit, vous pouvez vous connecter ici :</p><button class="btn-connecte"><a class="connecte_redirection" href="/Login">Connexion</a></button>
     </div>
   </div>
 </template>
@@ -23,8 +23,10 @@ body {
 }
 a {
   text-decoration: none;
-  color: white;
   font-size: 20px;
+}
+.btn_inscrit a, .btn-connecte a {
+  color: white;
 }
 .accueil {
   font-size: 25px;
