@@ -49,9 +49,10 @@ exports.modifyPublication = (req, res) => {
             // si pas d'erreur vérifier le token de l'id utilisateur ou du token de l'admin
             if (req.token.user_id == result[0].id_user || req.token.roleAdmin) {
                 const id = req.params.id;
-                const titre = req.body.titre;
-                const corps_message = req.body.corps_message;
-                const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+                // expression ternaire
+                const titre = req.body.titre || result[0].titre
+                const corps_message = req.body.corps_message || result[0].corps_message;
+                const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : result[0].image)
                 // on se connecte, changement puis envoie des données dans la bdd
                 dbConnection.query('UPDATE publications SET titre=?, corps_message=?, image=? WHERE id=?', [titre, corps_message, image, id], (error) => {
                     // si erreur
