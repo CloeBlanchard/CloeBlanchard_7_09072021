@@ -1,6 +1,7 @@
 <template>
   <div>
     <img id="logo" alt="Vue logo" src="../assets/logo.svg">
+    <p><button class="redirection_create"><a href="/affichagePublication">Retour aux publications</a></button></p>
     <h1 class="profil">Votre profile</h1>
     <div class="profil_container">
       <p class="info_profil">Votre nom :</p>
