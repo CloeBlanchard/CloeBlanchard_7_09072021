@@ -16,18 +16,18 @@
         </div>
         
         <!-- si la publication est modifié -->
-        <form v-if="update">
+        <form class="Publication" v-if="update">
             <!-- update du titre -->
-            <label for="update_titre">Améliorer le titre :</label>
-            <input type="text" id="update_titre" v-model="publications.titre">
+            <h2 class="parametre"><label for="update_titre">Améliorer le titre :</label></h2>
+            <p><input type="text" id="update_titre" class="commentaire_input" v-model="publications.titre"></p>
 
             <!-- update du corps de message -->
-            <label for="update_corps_message">Améliorer le corps de la publication :</label>
-            <input type="text" id="update_corps_message" v-model="publications.corps_message">
+            <p class="parametre"><label for="update_corps_message">Améliorer le corps de la publication :</label></p>
+            <p><input type="text" id="update_corps_message" class="commentaire_input" v-model="publications.corps_message"></p>
 
             <!-- update de l'image -->
-            <label for="update_image">Choisir une nouvelle image :</label>
-            <input type="file" id="update_image" @change="configImage"/>
+            <p class="parametre"><label for="update_image">Choisir une nouvelle image :</label></p>
+            <input type="file" id="update_image" class="image_input" @change="configImage"/>
         </form>
 
         <div class="Commentaire" v-for="commentary in commentarys" :key="commentary.id">
@@ -39,7 +39,7 @@
 
         <form class="Commentaire" @submit.prevent="addCommentary()">
             <p class="parametre"><label for="commentaire">Laisser un commmentaire :</label></p>
-            <p><input name="nouveau_commentaire" id="commentaire" required/></p>
+            <p><input name="nouveau_commentaire" class="commentaire_input" required/></p>
             <button class="btn_envoie_commentaire" type="submit" id="envoie_commentaire">Envoyer</button>
         </form>
 
@@ -227,10 +227,17 @@ export default {
     margin-top: 10px;
     margin-bottom: 0px;
 }
-#commentaire {
+.commentaire_input {
     font-size: 20px;
     border-radius: 30px;
     color: black;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527), -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
+}
+.image_input {
+    font-size: 20px;
+    border-radius: 30px;
+    background-color: #091f43;
+    color: lightgrey;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527), -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
 }
 .btn_envoie:hover, .btn_envoie_commentaire:hover {
