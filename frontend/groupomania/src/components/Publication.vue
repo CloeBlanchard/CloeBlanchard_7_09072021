@@ -1,24 +1,65 @@
 <template>
   <div class="Public">
-    <img id="logo" alt="Vue logo" src="../assets/logo.svg">
+    <img id="logo" alt="Vue logo" src="../assets/logo.svg" />
     <h1 class="accueil">Création d'une publication</h1>
+    <p>
+      <button class="redirection_create">
+        <a href="/affichagePublication">Retour aux publications</a>
+      </button>
+    </p>
     <!-- fonction de création d'une publication -->
     <form class="new_publication" @submit.prevent="creationPublication()">
       <div id="formulaire_titre">
         <p class="form"><label>Titre : </label></p>
-        <p><input type="text" v-model="titre" name="titre" id="titre_publication" class="formulaire_input" required/></p>
+        <p>
+          <input
+            type="text"
+            v-model="titre"
+            name="titre"
+            id="titre_publication"
+            class="formulaire_input"
+            required
+          />
+        </p>
       </div>
 
       <div id="formulaire_corps-message">
         <p class="form"><label>Corps de la publication : </label></p>
         <!-- utilisation de v-model pour crée une liaison de donnée sur les champs du formulaire -->
-        <p><input type="text" v-model="corps_message" name="corps_message" id="message_publication" class="formulaire_input" required/></p>
+        <p>
+          <input
+            type="text"
+            v-model="corps_message"
+            name="corps_message"
+            id="message_publication"
+            class="formulaire_input"
+            required
+          />
+        </p>
       </div>
       <div id="formulaire_image">
         <p class="form"><label>Image : </label></p>
-        <p><input type="file" @change="configImage" name="image" id="image_publication" class="formulaire_input" required/></p>
+        <p>
+          <input
+            type="file"
+            @change="configImage"
+            name="image"
+            id="image_publication"
+            class="formulaire_input"
+            required
+          />
+        </p>
       </div>
-      <p><button class="create_publication" id="envoyer_formulaire" type="submit" name="envoyer_formulaire">Créer publication</button></p>
+      <p>
+        <button
+          class="create_publication"
+          id="envoyer_formulaire"
+          type="submit"
+          name="envoyer_formulaire"
+        >
+          Créer publication
+        </button>
+      </p>
     </form>
   </div>
 </template>
@@ -36,11 +77,11 @@ export default {
       errors: [],
     };
   },
-     
+
   methods: {
     // fichier de l'image
     configImage: function (event) {
-      this.image = event.target.files[0]
+      this.image = event.target.files[0];
     },
     // fonction de creation d'un publication
     creationPublication() {
@@ -58,38 +99,42 @@ export default {
       let config = {
         headers: {
           authorization: "Bearer: " + this.$token,
-        }
-      }
+        },
+      };
       console.log(this.$user.id);
       console.log(this.titre);
       console.log(this.corps_message);
       console.log(this.image);
       console.log(this.$token);
       if (this.titre !== null || this.corps_message !== null || this.image) {
-        axios.post(`http://localhost:3000/api/publication`, PublicationForm, config,
-        {
-          "id_user": id_user,
-        },
-      )
-      .then((response) => {
-          if (response.status === 201) {
-            this.$emit("publications");
-          }
-        })
-      .then(() => {
-        alert("Votré publication à été envoyé !")
-        location.href = '/affichagePublication'
-      })
-        .catch((error) => {
-          console.log(error);
-        })
+        axios
+          .post(
+            `http://localhost:3000/api/publication`,
+            PublicationForm,
+            config,
+            {
+              id_user: id_user,
+            }
+          )
+          .then((response) => {
+            if (response.status === 201) {
+              this.$emit("publications");
+            }
+          })
+          .then(() => {
+            alert("Votré publication à été envoyé !");
+            location.href = "/affichagePublication";
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
 .new_publication {
   background-color: #d1515a;
   border-radius: 20px;
@@ -101,8 +146,9 @@ export default {
 .formulaire_input {
   font-size: 20px;
   border-radius: 30px;
-  color: lightgrey;
-  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527), -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
+  color: black;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527),
+    -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
 }
 .create_publication {
   font-size: 20px;
@@ -110,10 +156,13 @@ export default {
   background-color: #091f43;
   color: lightgrey;
   padding: 8px;
-  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527), -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.527),
+    -0.4em 0 0.4em rgba(0, 0, 0, 0.431);
 }
-.create_publication:hover, .formulaire_input:hover {
-  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.65), -0.4em 0 0.4em rgba(0, 0, 0, 0.65);
+.create_publication:hover,
+.formulaire_input:hover {
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.65),
+    -0.4em 0 0.4em rgba(0, 0, 0, 0.65);
   font-size: 23px;
 }
 .form {
