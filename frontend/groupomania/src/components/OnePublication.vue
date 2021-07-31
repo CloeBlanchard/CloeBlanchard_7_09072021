@@ -48,17 +48,8 @@
           v-model="publications.corps_message"
         />
       </p>
-
-      <!-- update de l'image -->
-      <p class="parametre">
-        <label for="update_image">Choisir une nouvelle image :</label>
-      </p>
-      <input
-        type="file"
-        id="update_image"
-        class="image_input"
-        @change="configImage"
-      />
+      <p class="parametre"><label for="update_image">Choisir une nouvelle image :</label></p>
+        <input type="file" id="update_image" class="image_input" @change="configImage"/>
     </form>
 
     <div
@@ -71,14 +62,11 @@
         Par {{ commentary.prenom }} {{ commentary.nom }} :
       </p>
       <p class="parametre3">"{{ commentary.corps_commentaire }}"</p>
-      <button
-        class="btn_envoie"
+      <p><button class="btn_envoie"
         @click="deleteCommentary(commentary.id)"
         v-if="commentary.id_user == $user.id || $user.roleAdmin == 1"
         :key="commentary.id"
-      >
-        Supprimer le commentaire
-      </button>
+      >Supprimer le commentaire</button></p>
     </div>
 
     <form class="Commentaire" @submit.prevent="addCommentary()">
@@ -187,27 +175,21 @@ export default {
           "corps_message",
           this.publications.corps_message
         );
-      }
-      // condition si le champ image est complet
-      if (this.image !== null) {
-        updatePublication.append("image", this.image);
-      }
-
-      axios
-        .put(
-          `http://localhost:3000/api/publication/${id_publication}`,
-          updatePublication,
-          {
-            headers: {
-              authorization: "Bearer: " + this.$token,
-            },
-          }
-        )
-        .then((location.href = "/affichagePublication"));
-    },
-    // selectionne l'image choisi
-    configImage: function (event) {
-      this.image = event.target.files[0];
+        axios
+            .put(
+            `http://localhost:3000/api/publication/${id_publication}`,
+            updatePublication,
+            {
+                headers: {
+                authorization: "Bearer: " + this.$token,
+                },
+            }
+            )
+            .then(() => {
+                alert("Votré publication à été envoyé !");
+                location.href = "/affichagePublication";
+            })
+        }
     },
     deletePublication() {
       const id_publication = this.$route.params.id;
@@ -218,6 +200,10 @@ export default {
           },
         })
         .then((location.href = "/affichagePublication"));
+    },
+    // selectionne l'image choisi
+    configImage: function (event) {
+        this.image = event.target.files[0]
     },
     // récupération de tous les commentaires
     getAllCommentarys() {

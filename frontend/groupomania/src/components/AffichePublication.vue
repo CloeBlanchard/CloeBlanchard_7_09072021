@@ -25,13 +25,6 @@
           <!-- dataFormat pour afficher la date de création de publication + affichage du nom et du prenom de l'utilisateur -->
           <span class="info">Crée le {{ dateFormat(publication.date) }}</span>
           <p class="info">Par {{ publication.prenom }} {{ publication.nom }}</p>
-
-          <!-- condition si l'utilisateur correspond a l'id logger ou si il y a un admin -->
-          <span
-            class="update"
-            v-if="publication.id_user == $user.id_user || $user.roleAdmin == 1"
-            >Modifier</span
-          >
         </div>
         <!-- affichage du titre de la publication -->
         <h2 class="info2">{{ publication.titre }}</h2>

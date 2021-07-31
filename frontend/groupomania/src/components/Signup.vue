@@ -49,7 +49,7 @@
         <p><label class="password">Mot de passe : </label></p>
         <p>
           <input
-            type="text"
+            type="password"
             name="mdp"
             id="mdp_inscription"
             class="formulaire_input"
