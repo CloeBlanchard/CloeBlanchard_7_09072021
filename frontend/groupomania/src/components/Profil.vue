@@ -119,4 +119,22 @@ export default {
     margin-right: 200px;
   }
 }
+@media screen and (min-width: 950px) {
+  .profil_container {
+    margin-left: 240px;
+    margin-right: 240px;
+  }
+}
+@media screen and (min-width: 1070px) {
+  .profil_container {
+    margin-left: 290px;
+    margin-right: 290px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .profil_container {
+    margin-left: 350px;
+    margin-right: 350px;
+  }
+}
 </style>
