@@ -74,7 +74,7 @@
         <label for="commentaire">Laisser un commmentaire :</label>
       </p>
       <p>
-        <input name="nouveau_commentaire" class="commentaire_input" required />
+        <input name="nouveau_commentaire" id="commentaire_id" class="commentaire_input" required />
       </p>
       <button
         class="btn_envoie_commentaire"
@@ -109,7 +109,7 @@
       </button>
     </p>
     <p>
-      <button class="btn_envoie" v-if="!update" @click="deletePublication()">
+      <button class="btn_envoie" v-if="authorized && !update" @click="deletePublication()">
         Suppression de la publication
       </button>
     </p>
@@ -225,8 +225,8 @@ export default {
     addCommentary() {
       const id_publication = this.$route.params.id;
       const user_id = this.$user.id;
-      const corps_commentaire = document.getElementById("commentaire").value;
-
+      const corps_commentaire = document.getElementById("commentaire_id").value;
+      console.log(corps_commentaire);
       axios
         .post(
           `http://localhost:3000/api/publication/${id_publication}/commentary`,
