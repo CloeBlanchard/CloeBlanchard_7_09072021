@@ -2,7 +2,7 @@
 ## Prérequis :
 *	Sous environnement Windows 10
 *	Disposer d’un serveur WAMP x64 en dernière version avec :  
-   * MySQL version 8.x.x
+  - MySQL version 8.x.x
 * Disposer d’un compte root, sans mot de passe, étant admin du serveur MySQL et phpMyAdmin
 *	Disposer de la dernière version de NodeJs x64
 *	Cloner le repository sur le poste W10
