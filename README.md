@@ -2,7 +2,9 @@
 ## Prérequis :
 *	Sous environnement Windows 10
 *	Disposer d’un serveur WAMP x64 en dernière version avec :  
-  - MySQL version 8.x.x
+```
+MySQL version 8.x.x
+```
 * Disposer d’un compte root, sans mot de passe, étant admin du serveur MySQL et phpMyAdmin
 *	Disposer de la dernière version de NodeJs x64
 *	Cloner le repository sur le poste W10
@@ -15,7 +17,9 @@
 *	Créer une base de données de nom « db_projet7 » et d’interclassement « utf8mb4_unicode_ci »
 *	Une fois la base créer, cliquer sur « Importer »
 *	Sélectionner le fichier se trouvant au chemin :
-	  	`* Chemin_du_clone\backend\BDD\db_projet7.sql`
+```
+Chemin_du_clone\backend\BDD\db_projet7.sql
+```
 *	Laissez les options d’importation par défaut dans phpMyAdmin, cliquer sur « Exécuter »
  
 ### 2ème partie : fichier .ENV & préparation serveur
