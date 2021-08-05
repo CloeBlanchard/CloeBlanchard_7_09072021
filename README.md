@@ -1,15 +1,13 @@
 # CloeBlanchard_7_09072021
 ## Prérequis :
-* Sous environnement Windows 10
-* Disposer d’un serveur WAMP x64 en dernière version avec :  
-	* MySQL version 8.x.x
-* Disposer d’un compte root, sans mot de passe, étant admin du serveur MySQL et phpMyAdmin
+* Disposer d’un MySQL version 8.x.x
+* Disposer d’un compte admin du serveur MySQL et phpMyAdmin
 *	Disposer de la dernière version de NodeJs x64
 *	Cloner le repository sur le poste W10
 *	Récupérer le chemin du clone sur le poste de travail (ex : C:\Temp\RepoP7)
 
 ## Installation
-### 1ère partie : base de données
+### 1ère partie : base de données (explication via WAMP)
 * Démarrage du serveur WAMP
 * Accéder à l’interface phpMyAdmin à l’adresse : http://localhost/phpmyadmin
 * Créer une base de données de nom « db_projet7 » et d’interclassement « utf8mb4_unicode_ci »
@@ -22,7 +20,8 @@
 * Créer un fichier avec l’extension .ENV à l’emplacement chemin_du_clone\backend et dont le contenue est le suivant :
 ```
 host=localhost
-user=root
+user=utilisateur_MySQL
+password=mot_de_passe_MySQL
 db=db_projet7
 Token=qsdkhglkdfghjd3
 ```
