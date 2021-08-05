@@ -37,14 +37,17 @@ Token=qsdkhglkdfghjd3
 	* cd chemin_du_repo\frontend
 * Une fois dans le dossier frontend, exécuter la commande :
 	* npm install
-* Exécuter la commande suivante pour l’installation de vue, axios et vue-router :
+* Exécuter la commande suivante pour l’installation de vue :
 ```
 npm install -g @vue/cli
-npm install axios
-npm install vue-router
 ```
 * Le frontend est initialisé, déplacer-vous dans le dossier groupomania avec la commande :
 	* cd .\groupomania\
+* Exécuter la commande suivante pour l’installation de axios et vue-router :
+```
+npm install axios
+npm install vue-router
+```
 * Vous pouvez maintenant démarrer le serveur Web avec la commande :
 	* npm run serve
 
