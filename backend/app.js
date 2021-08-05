@@ -15,10 +15,10 @@ const commentaryRoutes = require('./routes/commentary');
 
 // application
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    next();
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+	next();
 });
 
 // body parser
@@ -27,9 +27,10 @@ app.use(bodyParser.json());
 
 // db connect
 const dbConnection = mysql.createConnection({
-    host: process.env.host,
-    user: process.env.user,
-    database: process.env.db
+	host: process.env.host,
+	user: process.env.user,
+	password: process.env.password,
+	database: process.env.db
 });
 dbConnection.connect();
 
